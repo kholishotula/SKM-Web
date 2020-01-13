@@ -5,11 +5,11 @@ use Phalcon\Http\Response;
 
 use App\Forms\RespondenForm;
 
-class LPSEController extends Controller
+class PPIDController extends Controller
 {
-	public function lpseAction()
+	public function ppidAction()
 	{
-		$this->response->redirect('lpse/data-responden');
+		$this->response->redirect('ppid/data-responden');
     }
     
     public function respondenAction()
@@ -18,23 +18,27 @@ class LPSEController extends Controller
     }
 
     public function storeRespondAction(){
-        $id_layanan = 1;
+        $id_layanan = 2;
 
         $nama = $this->request->getPost('nama');
+        $kota = $this->request->getPost('asal');
+        if($kota == 'Luar'){
+            $kota = $this->request->getPost('tulisKota');
+        }
+        $pekerjaan = $this->request->getPost('pekerjaan');
         $nama_instansi = $this->request->getPost('nama_instansi');
-        $jabatan = $this->request->getPost('jabatan');
         $jenis_kelamin = $this->request->getPost('jenis_kelamin');
         $pendidikan = $this->request->getPost('pendidikan');
 
         $responden = new Responden();
 
-        $responden->construct($nama, '', $jabatan, $nama_instansi, $jenis_kelamin, $pendidikan);
+        $responden->construct($nama, $kota, $pekerjaan, $nama_instansi, $jenis_kelamin, $pendidikan);
 
         if($responden->save() == FALSE){
-            $this->response->redirect('lpse/data-responden');
+            $this->response->redirect('ppid/data-responden');
         }
         else{
-            $this->response->redirect('lpse/kuesioner');
+            $this->response->redirect('ppid/kuesioner');
         }
     }
 };

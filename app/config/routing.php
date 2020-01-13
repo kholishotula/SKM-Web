@@ -32,6 +32,14 @@ $di->set(
 		$router->mount(
 			new LPSERoutes()
 		);
+
+		$router->mount(
+			new PPIDRoutes()
+		);
+
+		$router->mount(
+			new PersandianRoutes()
+		);
 		
 		$router->addGet(
 			'/laporan',

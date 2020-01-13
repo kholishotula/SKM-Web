@@ -12,7 +12,7 @@ class Responden extends Model{
     private $pendidikan_terakhir;
 
     public function initialize(){
-        $this->setSource("responden");
+        $this->setSource('responden');
     }
 
     public function construct($nama_responden,$alamat_asal,$pekerjaan_jabatan,$instansi,$jenis_kelamin,$pendidikan_terakhir){
