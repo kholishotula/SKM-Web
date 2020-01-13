@@ -47,7 +47,7 @@ class LoginController extends Controller
 
         $remember = $this->request->getPost('remember');
 
-        $user = Users::findFirst("username='$username'");
+        $user = Admin::findFirst("username='$username'");
 
         if($user)
         {
@@ -57,7 +57,6 @@ class LoginController extends Controller
         			'auth',
         			[
                         'username' => $user->username,
-                        'role' => $user->role,
                         'remember' => $remember
         			]
                 );
@@ -67,7 +66,6 @@ class LoginController extends Controller
                         "remember",
                         [
                             'username' => $username,
-                            'role' => $user->role,
                             'password' => $password,
                         ],
                         time() + 15 * 86400
@@ -81,15 +79,15 @@ class LoginController extends Controller
             }
             else{
                 $this->security->hash(rand());
-                $this->message = "Incorrect password";
+                $this->message = "Password salah";
                 $this->dispatcher->forward(['action'=> 'create']);
             }
         }
         else {
             if($password==="" | $username==="")
-                $this->message = "You must fill username and password to log in";
+                $this->message = "Anda harus memasukkan username dan password untuk masuk";
             else
-                $this->message = "Incorrect username and password.";
+                $this->message = "Username dan/atau password salah.";
 
             $this->dispatcher->forward(['action'=> 'create']);
         }

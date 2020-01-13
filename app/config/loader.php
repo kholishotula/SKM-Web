@@ -16,12 +16,6 @@ $loader->registerNamespaces(
 	]
 	);
 
-// $loader->registerNamespaces(
-// 	[
-// 		'App\Validation' => APP_PATH . '/Validation/',
-// 	]
-// );
-
 $loader->register();
 
 ?>

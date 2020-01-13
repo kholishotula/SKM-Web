@@ -14,7 +14,7 @@ class Admin extends Model
     private $password;
 
     public function initialize(){
-        $this->setSource('pertanyaan');
+        $this->setSource('admin');
     }
 
     public function construct($nama_admin,$alamat,$jabatan,$jenis_kelamin,$pendidikan_terakhir,$username,$password){
