@@ -1,0 +1,61 @@
+{% extends "layouts\base.volt" %}
+
+{% block title %}Survei Kepuasan Layanan Masyarakat - Dinas Komunikasi, Informatika, dan Statistik Kota Blitar{% endblock %}
+
+{% block content %}
+<div id="page-container" class="sidebar-inverse side-scroll page-header-fixed main-content-boxed">
+    <main id="main-container" style="padding-top: 0">
+        <div class="content" style="padding-top: 0">
+            <h1 class="text-center text-secondary"><span class="text-danger">Pengisian Data Responden</span><br>
+            Layanan LPSE</h1>
+            <hr id="line">
+
+            <br><br>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form.startForm()}}
+                        <div class="form-group">
+                            <label>Nama</label>
+                            {{form.render('nama') }}
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Instansi</label>
+                            {{ form.render('nama_instansi') }}
+                        </div>
+                        <div class="form-group">
+                            <label>Jabatan</label><br>
+                            {{ form.render('PPK') }}
+                            {{ form.getLabel('PPK') }}
+                            {{ form.render('Pejabat_pengadaan') }}
+                            {{ form.getLabel('Pejabat_pengadaan') }}
+                            {{ form.render('Rekanan') }}
+                            {{ form.getLabel('Rekanan') }}
+                        </div>
+                        <div class="form-group">
+                            <label>Jenis Kelamin</label><br>
+                            {{ form.render('Laki') }}
+                            {{ form.getLabel('Laki') }}
+                            {{ form.render('Perempuan') }}
+                            {{ form.getLabel('Perempuan') }}
+                        </div>
+                        <div class="form-group">
+                            <label>Pendidikan Terakhir</label><br>
+                            {{ form.render('SMAK') }}
+                            {{ form.getLabel('SMAK') }}
+                            {{ form.render('Diploma') }}
+                            {{ form.getLabel('Diploma') }}
+                            {{ form.render('S1') }}
+                            {{ form.getLabel('S1') }}
+                            {{ form.render('S23') }}
+                            {{ form.getLabel('S23') }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.render('Next') }}
+                        </div style="margin-left:50px;">
+                    {{ form.endForm() }}
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}

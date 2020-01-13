@@ -28,6 +28,10 @@ $di->set(
 				'action' => 'survei',
 			]
 		);
+
+		$router->mount(
+			new LPSERoutes()
+		);
 		
 		$router->addGet(
 			'/laporan',

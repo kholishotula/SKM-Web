@@ -12,7 +12,7 @@
 
             <br><br>
             <div class="row">
-                <div class="col-10">
+                <div class="col-10" style="font-size: larger">
                     Bapak/Ibu/Saudara Yang Terhormat,<br><br>
                     <p class="text-justify">
                         Survei Kepuasan Masyarakat (SKM) adalah alat untuk mengukur kepuasan masyarakat secara komprehensif sebagai pengguna layanan berdasar atas pendapat masyarakat dalam memperoleh pelayanan dari penyelenggara pelayanan publik. Bagi penyelenggara, SKM ini bertujuan sebagai upaya untuk meningkatkan kualitas pelayanan publik dan mengetahui kinerja pelayanan aparatur pemerintah kepada masyarakat.<br><br>
