@@ -37,6 +37,10 @@ $di->set(
 			]
 		);
 
+		$router->mount(
+			new LoginRoutes()
+		);
+
 		$router->notFound([
 			'controller' => 'index',
 			'action' => 'show404',

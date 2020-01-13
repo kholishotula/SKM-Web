@@ -10,6 +10,12 @@ $loader->registerDirs(
 	]
 );
 
+$loader->registerNamespaces(
+	[
+		'App\Forms' => APP_PATH ."/form/"
+	]
+	);
+
 // $loader->registerNamespaces(
 // 	[
 // 		'App\Validation' => APP_PATH . '/Validation/',
