@@ -11,10 +11,9 @@
 	<title>Survei Kepuasan Layanan Masyarakat - Dinas Komunikasi, Informatika, dan Statistik Kota Blitar</title>
 </head>
 <body>
-	<header id="page-header">
-<!-- Header Content -->
+	<!-- Header Content -->
         <!-- Nav tabs -->
-        <nav class="navbar navbar-expand-lg navbar-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
             <a class="nav-link" href="<?= $this->url->get() ?>">Home</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -36,15 +35,46 @@
                 </ul>
             </div>
         </nav>
+    <div class="intro">
+    </div>
 <!-- END Header Content -->
-</header>
 
 	
+<div id="page-container" class="sidebar-inverse side-scroll page-header-fixed main-content-boxed">
+    <main id="main-container" style="padding-top: 0">
+        <div class="content" style="padding-top: 0">
+            <h1 class="text-center text-secondary"><span class="text-danger">Panduan Pengisian</span> 
+            Survei Kepuasan Layanan Masyarakat<br>Kota Blitar</h1>
+            <hr id="line">
 
+            <br><br>
+            <div class="row">
+                <div class="col-10">
+                    Bapak/Ibu/Saudara Yang Terhormat,<br><br>
+                    <p class="text-justify">
+                        Survei Kepuasan Masyarakat (SKM) adalah alat untuk mengukur kepuasan masyarakat secara komprehensif sebagai pengguna layanan berdasar atas pendapat masyarakat dalam memperoleh pelayanan dari penyelenggara pelayanan publik. Bagi penyelenggara, SKM ini bertujuan sebagai upaya untuk meningkatkan kualitas pelayanan publik dan mengetahui kinerja pelayanan aparatur pemerintah kepada masyarakat.<br><br>
+                        Penyelenggara pelayanan publik wajib melakukan Survei Kepuasan Masyarakat secara berkala minimal 1 (satu) kali setahun. Survei ini dilakukan berdasar atas Peraturan Menteri Pendayagunaan Aparatur Negara dan Reformasi Birokrasi Nomor 16 Tahun 2014 Tentang Pedoman Survei Kepuasan Masyarakat Terhadap Penyelenggaraan Pelayanan Publik.<br><br>
+                        Berikut adalah panduan pengisian survei :
+                    </p>
+                    <!--VIDEO DISINI-->
+                    <p>
+                        Silahkan isi survei <a class="text-info font-weight-bold" href="<?= $this->url->get('survei') ?>">DISINI</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
 
-	<div class="clearfix">
-		<div class="row"> 
-			<p style="padding-left: 2vw">© Dinas Komunikasi, Informatika, dan Statistik Kota Blitar</p>
+	<div class="clearfix bottom-content">
+		<div class="row" style="position: absolute; bottom: 8px; width: 100%; color: white"> 
+			<div class="col-8">
+				<p style="padding-left: 2vw;">© Dinas Komunikasi, Informatika, dan Statistik Kota Blitar</p>
+			</div>
+			<div class="col-4">
+                <a type="button" class="text-white" href="http://diskominfotik.blitarkota.go.id/"><i class="fa fa-globe" style="font-size:24px"></i> http://diskominfotik.blitarkota.go.id</a><br>
+                <a type="button" class="text-white" href="https://www.facebook.com/diskominfotikkotablitar/"><i class="fa fa-facebook-square" style="font-size:24px"></i> Diskominfotik Kota Blitar</a><br>
+			</div>
 		</div> 
 	</div>
 </body>
