@@ -16,7 +16,7 @@
 				{{ this.flash.error(message)}}
 			{% endif %}
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-6 login-padding">
 			{{ form.startForm()}}
 				<div class="form-group">
 					{{form.render('username') }}
@@ -30,8 +30,7 @@
 					{{ form.render('remember') }}
 					{{ form.getLabel('remember') }}
 				</div>
-				{{ form.endForm() }}
-			</div>
+			{{ form.endForm() }}
 		</div>
 	</div>
 </div>
