@@ -24,7 +24,7 @@ class LoginForm extends BaseForm {
 
         $username->addValidator(new Alnum(
         [
-            'message' => 'Username must consist of alphanumeric only'
+            'message' => 'Username hanya terdiri dari huruf dan angka'
         ]));
 
         $password = new Password ('password',
@@ -36,7 +36,7 @@ class LoginForm extends BaseForm {
 
         $password->addValidator(new Alnum(
         [
-            'message' => 'Password must consist of alphanumeric only'
+            'message' => 'Password hanya terdiri dari huruf dan angka'
         ]));
 
         $submit = new Submit ('Login',[

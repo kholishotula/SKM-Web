@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="<?= $this->url->get('css/styles.css') ?>" rel="stylesheet">
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<link href="<?= $this->url->get('css/styles.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/bootstrap.min.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/fontawesome.min.css') ?>" rel="stylesheet">
 <link id="css-main" href="<?= $this->url->get('css/codebase.min.css') ?>" rel="stylesheet">
@@ -13,7 +14,7 @@
 <body>
 	<!-- Header Content -->
         <!-- Nav tabs -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-light">
             <a class="nav-link" href="<?= $this->url->get() ?>">Home</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -58,7 +59,7 @@
                     </p>
                     <!--VIDEO DISINI-->
                     <p>
-                        Silahkan isi survei <a class="text-info font-weight-bold" href="<?= $this->url->get('survei') ?>">DISI</a>
+                        Silahkan isi survei <a class="text-info font-weight-bold" href="<?= $this->url->get('survei') ?>">DISINI</a>
                     </p>
                 </div>
             </div>

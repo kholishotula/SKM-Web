@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="<?= $this->url->get('css/styles.css') ?>" rel="stylesheet">
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<link href="<?= $this->url->get('css/styles.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/bootstrap.min.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/fontawesome.min.css') ?>" rel="stylesheet">
 <link id="css-main" href="<?= $this->url->get('css/codebase.min.css') ?>" rel="stylesheet">
@@ -46,26 +47,30 @@
 <?php } ?>
 
 <div class="row-centered">
-	<div class="card"></div>
-	<div class="col-md-6">
-		<?= $form->startForm() ?>
-			<div class="form-group">
-			<?= $form->render('username') ?>
+	<div class="card login-card">
+		<h1 class="text-center text-secondary">Log In <span class="text-danger">Operator</span></h1>
+		<div class="notif-block">
+			<?php if ($message != '') { ?>
+				<?= $this->flash->error($message) ?>
+			<?php } ?>
+		</div>
+		<div class="col-md-6">
+			<?= $form->startForm() ?>
+				<div class="form-group">
+					<?= $form->render('username') ?>
+				</div>
+				<div class="form-group">
+					<?= $form->render('password') ?>
+				</div>
+				<div class="form-group">
+				<?= $form->render('Login') ?>
+				</div style="margin-left:50px;">
+					<?= $form->render('remember') ?>
+					<?= $form->getLabel('remember') ?>
+				</div>
+				<?= $form->endForm() ?>
 			</div>
-			<div class="form-group">
-			<?= $form->render('password') ?>
-			</div>
-			<div class="form-group">
-			<div class="form-group">
-			<?= $form->render('Login') ?>
-			</div style="margin-left:50px;">
-			<?= $form->render('remember') ?>
-			<?= $form->getLabel('remember') ?>
-			</div>
-		<?= $form->endForm() ?>
-	</div>
-	<div class="col-md-6">
-	<a href="<?= $this->url->get('register') ?>">Register</a>
+		</div>
 	</div>
 </div>
 
