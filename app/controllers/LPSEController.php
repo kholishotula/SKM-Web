@@ -70,7 +70,7 @@ class LPSEController extends Controller
         $kritik = $this->request->getPost('kritik');
 
         $id_responden = $this->session->get('responden')['id'];
-        $date = date('Y-M-D', time());
+        $date = date('Y-m-d', time());
         $submission = new SubmitSurvei();
         $submission->construct($id_responden, '1', $skor, $kritik, $date);
 
