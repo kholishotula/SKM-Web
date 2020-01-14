@@ -44,22 +44,39 @@
 <div id="page-container" class="sidebar-inverse side-scroll page-header-fixed main-content-boxed">
     <main id="main-container" style="padding-top: 0">
         <div class="content" style="padding-top: 0">
-            <h1 class="text-center text-secondary">Survei Kepuasan Layanan Masyarakat<br>Kota Blitar</h1>
+            <h1 class="text-center text-secondary"><span class="text-danger">Pengisian Kuesioner</span><br>
+            LAYANAN PENGADAAN SECARA ELEKTRONIK (LPSE)</h1>
             <hr id="line">
 
             <br><br>
             <div class="row">
-                <div class="col-10" style="font-size: larger">
-                    Silahkan pilih layanan yang Anda terima<br><br>
+                <form action="<?= $this->url->get('lpse/kuesioner') ?>" method="post">
+                <div class="col-md-10" style="font-size: larger">
+                    <?php $i = 1; ?>
+                        <?php foreach ($pertanyaan as $tanya) { ?>
+                        <?php $var = 'poin' . $i; ?>
+                        <div class="form-group">
+                            <label><?= $tanya->getKonten() ?></label><br>
+                            <input type="radio" name="<?= $var ?>" value=4>Sangat Setuju</input>
+                            <input type="radio" name="<?= $var ?>" value=3>Setuju</input>
+                            <input type="radio" name="<?= $var ?>" value=2>Kurang Setuju</input>
+                            <input type="radio" name="<?= $var ?>" value=1>Tidak Setuju</input>
+                        </div>
+                        <?php $i = $i + 1; ?>
+                        <?php } ?>
+                        <div class="form-group">
+                            <label>Kritik dan Saran</label>
+                            <textarea class="form-control" rows="5" name="kritik"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div style="margin-left:50px;">
                 </div>
-                <div class="col-8">
-                    <a type="button" class="btn btn-lg btn-success btn-block text-black" href="<?= $this->url->get('lpse') ?>">Layanan Pengadaan Secara Elektronik (LPSE)</a>
-                    <a type="button" class="btn btn-lg btn-success btn-block text-black" href="<?= $this->url->get('ppid') ?>">Pengelola Informasi dan Dokumentasi (PPID)</a>
-                    <a type="button" class="btn btn-lg btn-success btn-block text-black" href="<?= $this->url->get('persandian') ?>">Data Statistitik Sektoral dan Persandian</a>
-                </div>
+                </form>
             </div>
         </div>
     </main>
+</div>
 
 	<div class="clearfix bottom-content">
 		<div class="row" style="position: absolute; bottom: 8px; width: 100%; color: white"> 

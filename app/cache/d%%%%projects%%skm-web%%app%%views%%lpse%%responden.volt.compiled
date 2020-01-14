@@ -14,7 +14,7 @@
 <body>
 	<!-- Header Content -->
         <!-- Nav tabs -->
-        <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
             <a class="nav-link" href="<?= $this->url->get() ?>">Home</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -45,7 +45,7 @@
     <main id="main-container" style="padding-top: 0">
         <div class="content" style="padding-top: 0">
             <h1 class="text-center text-secondary"><span class="text-danger">Pengisian Data Responden</span><br>
-            Layanan LPSE</h1>
+            LAYANAN PENGADAAN SECARA ELEKTRONIK (LPSE)</h1>
             <hr id="line">
 
             <br><br>
@@ -88,7 +88,7 @@
                             <?= $form->getLabel('S23') ?>
                         </div>
                         <div class="form-group">
-                            <?= $form->render('Next') ?>
+                            <?= $form->render('Lanjut') ?>
                         </div style="margin-left:50px;">
                     <?= $form->endForm() ?>
                 </div>

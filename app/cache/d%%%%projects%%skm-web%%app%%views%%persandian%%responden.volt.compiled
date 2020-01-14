@@ -44,22 +44,61 @@
 <div id="page-container" class="sidebar-inverse side-scroll page-header-fixed main-content-boxed">
     <main id="main-container" style="padding-top: 0">
         <div class="content" style="padding-top: 0">
-            <h1 class="text-center text-secondary">Survei Kepuasan Layanan Masyarakat<br>Kota Blitar</h1>
+            <h1 class="text-center text-secondary"><span class="text-danger">Pengisian Data Responden</span><br>
+            LAYANAN DATA STATISTIK SEKTORAL DAN PERSANDIAN</h1>
             <hr id="line">
 
             <br><br>
             <div class="row">
-                <div class="col-10" style="font-size: larger">
-                    Silahkan pilih layanan yang Anda terima<br><br>
-                </div>
-                <div class="col-8">
-                    <a type="button" class="btn btn-lg btn-success btn-block text-black" href="<?= $this->url->get('lpse') ?>">Layanan Pengadaan Secara Elektronik (LPSE)</a>
-                    <a type="button" class="btn btn-lg btn-success btn-block text-black" href="<?= $this->url->get('ppid') ?>">Pengelola Informasi dan Dokumentasi (PPID)</a>
-                    <a type="button" class="btn btn-lg btn-success btn-block text-black" href="<?= $this->url->get('persandian') ?>">Data Statistitik Sektoral dan Persandian</a>
+                <div class="col-md-6">
+                    <?= $form->startForm() ?>
+                        <div class="form-group">
+                            <label>Nama</label>
+                            <?= $form->render('nama') ?>
+                        </div>
+                        <div class="form-group">
+                            <label>Asal Kota</label><br>
+                            <?= $form->render('Kota') ?>
+                            <?= $form->getLabel('Kota') ?><br>
+                            <?= $form->render('LuarKota') ?>
+                            <?= $form->getLabel('LuarKota') ?>
+                            <?= $form->render('tulisKota') ?>
+                        </div>
+                        <div class="form-group">
+                            <label>Pekerjaan</label><br>
+                            <?= $form->render('pekerjaan') ?>
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Instansi</label>
+                            <?= $form->render('nama_instansi') ?>
+                        </div>
+                        <div class="form-group">
+                            <label>Jenis Kelamin</label><br>
+                            <?= $form->render('Laki') ?>
+                            <?= $form->getLabel('Laki') ?>
+                            <?= $form->render('Perempuan') ?>
+                            <?= $form->getLabel('Perempuan') ?>
+                        </div>
+                        <div class="form-group">
+                            <label>Pendidikan Terakhir</label><br>
+                            <?= $form->render('SMAK') ?>
+                            <?= $form->getLabel('SMAK') ?>
+                            <?= $form->render('Diploma') ?>
+                            <?= $form->getLabel('Diploma') ?>
+                            <?= $form->render('S1') ?>
+                            <?= $form->getLabel('S1') ?>
+                            <?= $form->render('S23') ?>
+                            <?= $form->getLabel('S23') ?>
+                        </div>
+                        <div class="form-group">
+                            <?= $form->render('Lanjut') ?>
+                        </div style="margin-left:50px;">
+                    <?= $form->endForm() ?>
                 </div>
             </div>
         </div>
     </main>
+</div>
 
 	<div class="clearfix bottom-content">
 		<div class="row" style="position: absolute; bottom: 8px; width: 100%; color: white"> 

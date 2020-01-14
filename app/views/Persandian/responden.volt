@@ -7,7 +7,7 @@
     <main id="main-container" style="padding-top: 0">
         <div class="content" style="padding-top: 0">
             <h1 class="text-center text-secondary"><span class="text-danger">Pengisian Data Responden</span><br>
-            LAYANAN PENGADAAN SECARA ELEKTRONIK (LPSE)</h1>
+            LAYANAN DATA STATISTIK SEKTORAL DAN PERSANDIAN</h1>
             <hr id="line">
 
             <br><br>
@@ -19,17 +19,20 @@
                             {{form.render('nama') }}
                         </div>
                         <div class="form-group">
-                            <label>Nama Instansi</label>
-                            {{ form.render('nama_instansi') }}
+                            <label>Asal Kota</label><br>
+                            {{form.render('Kota') }}
+                            {{form.getLabel('Kota')}}<br>
+                            {{form.render('LuarKota')}}
+                            {{form.getLabel('LuarKota')}}
+                            {{form.render('tulisKota')}}
                         </div>
                         <div class="form-group">
-                            <label>Jabatan</label><br>
-                            {{ form.render('PPK') }}
-                            {{ form.getLabel('PPK') }}
-                            {{ form.render('Pejabat_pengadaan') }}
-                            {{ form.getLabel('Pejabat_pengadaan') }}
-                            {{ form.render('Rekanan') }}
-                            {{ form.getLabel('Rekanan') }}
+                            <label>Pekerjaan</label><br>
+                            {{form.render('pekerjaan')}}
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Instansi</label>
+                            {{ form.render('nama_instansi') }}
                         </div>
                         <div class="form-group">
                             <label>Jenis Kelamin</label><br>

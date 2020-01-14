@@ -5,29 +5,35 @@ use Phalcon\Http\Response;
 
 use App\Forms\RespondenForm;
 
-class LPSEController extends Controller
+class PPIDController extends Controller
 {
-	public function lpseAction(){
-		$this->response->redirect('lpse/data-responden');
+	public function ppidAction()
+	{
+		$this->response->redirect('ppid/data-responden');
     }
     
-    public function respondenAction(){
+    public function respondenAction()
+    {
         $this->view->form = new RespondenForm();
     }
 
     public function storeRespondAction(){
         $nama = $this->request->getPost('nama');
+        $kota = $this->request->getPost('asal');
+        if($kota == 'Luar'){
+            $kota = $this->request->getPost('tulisKota');
+        }
+        $pekerjaan = $this->request->getPost('pekerjaan');
         $nama_instansi = $this->request->getPost('nama_instansi');
-        $jabatan = $this->request->getPost('jabatan');
         $jenis_kelamin = $this->request->getPost('jenis_kelamin');
         $pendidikan = $this->request->getPost('pendidikan');
 
         $responden = new Responden();
 
-        $responden->construct($nama, '', $jabatan, $nama_instansi, $jenis_kelamin, $pendidikan);
+        $responden->construct($nama, $kota, $pekerjaan, $nama_instansi, $jenis_kelamin, $pendidikan);
 
         if($responden->save() == FALSE){
-            $this->response->redirect('lpse/data-responden');
+            $this->response->redirect('ppid/data-responden');
         }
         else{
             $this->session->set(
@@ -35,8 +41,8 @@ class LPSEController extends Controller
                 [
                     'id' => $responden->getId(),
                 ]
-              );
-            $this->response->redirect('lpse/kuesioner');
+            );
+            $this->response->redirect('ppid/kuesioner');
         }
     }
 
@@ -44,7 +50,7 @@ class LPSEController extends Controller
         $id_pertanyaan = KuesionerPertanyaan::find(
             [
                 'columns' => 'id_pertanyaan',
-                'conditions' => 'id_kuesioner = 1',
+                'conditions' => 'id_kuesioner = 2',
             ]
         );
         
@@ -57,7 +63,7 @@ class LPSEController extends Controller
         $id_pertanyaan = KuesionerPertanyaan::find(
             [
                 'columns' => 'id_pertanyaan',
-                'conditions' => 'id_kuesioner = 1',
+                'conditions' => 'id_kuesioner = 2',
             ]
         );
         $skor = 0;
@@ -72,13 +78,13 @@ class LPSEController extends Controller
         $id_responden = $this->session->get('responden')['id'];
         $date = date('Y-M-D', time());
         $submission = new SubmitSurvei();
-        $submission->construct($id_responden, '1', $skor, $kritik, $date);
+        $submission->construct($id_responden, '2', $skor, $kritik, $date);
 
         if($submission->save() == FALSE){
-            $this->response->redirect('lpse/kuesioner');
+            $this->response->redirect('ppid/kuesioner');
         }
         else{
-            $this->response->redirect('lpse/hasil-kuesioner');
+            $this->response->redirect('ppid/hasil-kuesioner');
         }
     }
 
@@ -86,7 +92,7 @@ class LPSEController extends Controller
         $skor = SubmitSurvei::find(
             [
                 'columns' => 'skor_akhir',
-                'conditions' => 'id_responden = ' . $this->session->get('responden')['id'] . ' AND id_kuesioner = 1',
+                'conditions' => 'id_responden = ' . $this->session->get('responden')['id'] . ' AND id_kuesioner = 2',
             ]
         );
         $this->view->skor = $skor[0][skor_akhir];

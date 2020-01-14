@@ -2,20 +2,20 @@
 
 	use Phalcon\Mvc\Router\Group as RouterGroup;
 
-	class LPSERoutes extends RouterGroup
+	class PersandianRoutes extends RouterGroup
 	{
 		public function initialize()
 		{
 			$this->setPaths([
-				'controller' => 'lpse',
+				'controller' => 'persandian',
             ]);
             
-            $this->setPrefix('/lpse');
+            $this->setPrefix('/persandian');
 
             $this->addGet(
                 '',
 				[
-					'action' => 'lpse',
+					'action' => 'persandian',
 				]
 			);
 

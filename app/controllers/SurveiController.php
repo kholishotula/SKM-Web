@@ -7,7 +7,7 @@ class SurveiController extends Controller
 {
 	public function surveiAction()
 	{
-		
+		unset($this->session->responden);
 	}
 };
 
