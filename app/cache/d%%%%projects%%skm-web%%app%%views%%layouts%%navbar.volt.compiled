@@ -7,18 +7,47 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= $this->url->get('panduan') ?>">Panduan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= $this->url->get('survei') ?>">Survei Kuesioner</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= $this->url->get('laporan') ?>">Laporan Survei</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= $this->url->get('login') ?>">Login</a>
-                    </li>
+                    <?php if ($this->session->get('auth')) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('kuesioner') ?>">Kuesioner</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('pertanyaan') ?>">Pertanyaan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('tampil-rekap') ?>">Laporan Rekapitulasi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('submission') ?>">Submission Survei</a>
+                        </li>
+                    <?php } else { ?> 
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('panduan') ?>">Panduan</a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('survei') ?>">Survei Kuesioner</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('laporan') ?>">Laporan Survei</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('laporan-rekap') ?>">Laporan Rekapitulasi</a>
+                        </li>
+                    <?php } ?>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <?php if ($this->session->get('auth')) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('profile') ?>">Selamat Datang, <span class="text-info"><?= $this->session->get('auth')['username'] ?></span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-danger" href="<?= $this->url->get('logout') ?>">Log Out</a>
+                        </li> 
+                    <?php } else { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('login') ?>">Log In</a>
+                        </li>
+                    <?php } ?>
                 </ul>
             </div>
         </nav>

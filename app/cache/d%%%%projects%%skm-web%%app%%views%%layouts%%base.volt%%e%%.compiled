@@ -1,4 +1,4 @@
-a:5:{i:0;s:742:"<!DOCTYPE html>
+a:5:{i:0;s:1067:"<!DOCTYPE html>
 <html>
 <head>
 	 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
@@ -6,10 +6,13 @@ a:5:{i:0;s:742:"<!DOCTYPE html>
 <link href="<?= $this->url->get('css/bootstrap.min.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/fontawesome.min.css') ?>" rel="stylesheet">
 <link id="css-main" href="<?= $this->url->get('css/codebase.min.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/tagmanager.min.css') ?>" rel="stylesheet">
 <link rel="shortcut icon" href="<?= $this->url->get('assets/favicon.ico') ?>" type="image/x-icon">
 <script type="text/javascript" src="<?= $this->url->get('js/jquery-3.3.1.min.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/bootstrap.bundle.min.js') ?>"></script>
-	<title>";s:5:"title";a:1:{i:0;a:4:{s:4:"type";i:357;s:5:"value";s:1:" ";s:4:"file";s:47:"D:\Projects\SKM-Web\app/views\layouts\base.volt";s:4:"line";i:5;}}i:1;s:1428:"</title>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>  
+	<title>";s:5:"title";a:1:{i:0;a:4:{s:4:"type";i:357;s:5:"value";s:1:" ";s:4:"file";s:47:"D:\Projects\SKM-Web\app/views\layouts\base.volt";s:4:"line";i:5;}}i:1;s:3244:"</title>
 </head>
 <body>
 	<!-- Header Content -->
@@ -21,18 +24,47 @@ a:5:{i:0;s:742:"<!DOCTYPE html>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= $this->url->get('panduan') ?>">Panduan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= $this->url->get('survei') ?>">Survei Kuesioner</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= $this->url->get('laporan') ?>">Laporan Survei</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= $this->url->get('login') ?>">Login</a>
-                    </li>
+                    <?php if ($this->session->get('auth')) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('kuesioner') ?>">Kuesioner</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('pertanyaan') ?>">Pertanyaan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('tampil-rekap') ?>">Laporan Rekapitulasi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('submission') ?>">Submission Survei</a>
+                        </li>
+                    <?php } else { ?> 
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('panduan') ?>">Panduan</a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('survei') ?>">Survei Kuesioner</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('laporan') ?>">Laporan Survei</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('laporan-rekap') ?>">Laporan Rekapitulasi</a>
+                        </li>
+                    <?php } ?>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <?php if ($this->session->get('auth')) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('profile') ?>">Selamat Datang, <span class="text-info"><?= $this->session->get('auth')['username'] ?></span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-danger" href="<?= $this->url->get('logout') ?>">Log Out</a>
+                        </li> 
+                    <?php } else { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('login') ?>">Log In</a>
+                        </li>
+                    <?php } ?>
                 </ul>
             </div>
         </nav>
