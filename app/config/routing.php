@@ -42,6 +42,14 @@ $di->set(
 		);
 
 		$router->mount(
+			new PPIDRoutes()
+		);
+
+		$router->mount(
+			new PersandianRoutes()
+		);
+
+		$router->mount(
 			new LoginRoutes()
 		);
 
