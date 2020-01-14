@@ -9,6 +9,26 @@ class LaporanController extends Controller
 	{
 		
 	}
+
+	public function createAction()
+	{
+
+	}
+
+	public function storeAction()
+	{
+
+	}
+
+	public function showAction()
+	{
+
+	}
+
+	public function deleteAction()
+	{
+
+	}
 };
 
 ?>

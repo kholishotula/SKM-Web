@@ -56,7 +56,8 @@ class LoginController extends Controller
         		$this->session->set(
         			'auth',
         			[
-                        'username' => $user->username,
+                        'username' => $username,
+                        'id' => $user->getId(),
                         'remember' => $remember
         			]
                 );

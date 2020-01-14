@@ -29,20 +29,32 @@ $di->set(
 			]
 		);
 
+		$router->addGet(
+            '/laporan',
+            [
+                'controller' => 'laporan',
+                'action' => 'laporan',
+            ]
+        );
+
 		$router->mount(
 			new LPSERoutes()
-		);
-		
-		$router->addGet(
-			'/laporan',
-			[
-				'controller' => 'laporan',
-				'action' => 'laporan',
-			]
 		);
 
 		$router->mount(
 			new LoginRoutes()
+		);
+
+		$router->mount(
+			new LaporanRekapRoutes()
+		);
+
+		$router->mount(
+			new KuesionerRoutes()
+		);
+
+		$router->mount(
+			new PertanyaanRoutes()
 		);
 
 		$router->notFound([
