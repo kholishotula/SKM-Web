@@ -18,8 +18,6 @@ class PPIDController extends Controller
     }
 
     public function storeRespondAction(){
-        $id_layanan = 2;
-
         $nama = $this->request->getPost('nama');
         $kota = $this->request->getPost('asal');
         if($kota == 'Luar'){
@@ -38,8 +36,66 @@ class PPIDController extends Controller
             $this->response->redirect('ppid/data-responden');
         }
         else{
+            $this->session->set(
+                'responden',
+                [
+                    'id' => $responden->getId(),
+                ]
+            );
             $this->response->redirect('ppid/kuesioner');
         }
+    }
+
+    public function kuesionerAction(){
+        $id_pertanyaan = KuesionerPertanyaan::find(
+            [
+                'columns' => 'id_pertanyaan',
+                'conditions' => 'id_kuesioner = 2',
+            ]
+        );
+        
+        $id_pertanyaan = implode(',', array_map('intval',(array)$id_pertanyaan));
+        $pertanyaan = Pertanyaan::find("id_pertanyaan IN (".$id_pertanyaan.")");
+        $this->view->pertanyaan = $pertanyaan;
+    }
+
+    public function storeJawabAction(){
+        $id_pertanyaan = KuesionerPertanyaan::find(
+            [
+                'columns' => 'id_pertanyaan',
+                'conditions' => 'id_kuesioner = 2',
+            ]
+        );
+        $skor = 0;
+        $temp;
+        $i = 1;
+        foreach ($id_pertanyaan as $temp){
+            $skor = $skor + $this->request->getPost('poin' . $i);
+            $i++;
+        }
+        $kritik = $this->request->getPost('kritik');
+
+        $id_responden = $this->session->get('responden')['id'];
+        $date = date('Y-M-D', time());
+        $submission = new SubmitSurvei();
+        $submission->construct($id_responden, '2', $skor, $kritik, $date);
+
+        if($submission->save() == FALSE){
+            $this->response->redirect('ppid/kuesioner');
+        }
+        else{
+            $this->response->redirect('ppid/hasil-kuesioner');
+        }
+    }
+
+    public function hasilKuesionerAction(){
+        $skor = SubmitSurvei::find(
+            [
+                'columns' => 'skor_akhir',
+                'conditions' => 'id_responden = ' . $this->session->get('responden')['id'] . ' AND id_kuesioner = 2',
+            ]
+        );
+        $this->view->skor = $skor[0][skor_akhir];
     }
 };
 

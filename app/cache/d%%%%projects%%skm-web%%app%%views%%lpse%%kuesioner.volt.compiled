@@ -44,57 +44,35 @@
 <div id="page-container" class="sidebar-inverse side-scroll page-header-fixed main-content-boxed">
     <main id="main-container" style="padding-top: 0">
         <div class="content" style="padding-top: 0">
-            <h1 class="text-center text-secondary"><span class="text-danger">Pengisian Data Responden</span><br>
-            LAYANAN PENGELOLA INFORMASI DAN DOKUMENTASI (PPID)</h1>
+            <h1 class="text-center text-secondary"><span class="text-danger">Pengisian Kuesioner</span><br>
+            LAYANAN PENGADAAN SECARA ELEKTRONIK (LPSE)</h1>
             <hr id="line">
 
             <br><br>
             <div class="row">
-                <div class="col-md-6">
-                    <?= $form->startForm() ?>
+                <form action="<?= $this->url->get('lpse/kuesioner') ?>" method="post">
+                <div class="col-md-10" style="font-size: larger">
+                    <?php $i = 1; ?>
+                        <?php foreach ($pertanyaan as $tanya) { ?>
+                        <?php $var = 'poin' . $i; ?>
                         <div class="form-group">
-                            <label>Nama</label>
-                            <?= $form->render('nama') ?>
+                            <label><?= $tanya->getKonten() ?></label><br>
+                            <input type="radio" name="<?= $var ?>" value=4>Sangat Setuju</input>
+                            <input type="radio" name="<?= $var ?>" value=3>Setuju</input>
+                            <input type="radio" name="<?= $var ?>" value=2>Kurang Setuju</input>
+                            <input type="radio" name="<?= $var ?>" value=1>Tidak Setuju</input>
+                        </div>
+                        <?php $i = $i + 1; ?>
+                        <?php } ?>
+                        <div class="form-group">
+                            <label>Kritik dan Saran</label>
+                            <textarea class="form-control" rows="5" name="kritik"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Asal Kota</label><br>
-                            <?= $form->render('Kota') ?>
-                            <?= $form->getLabel('Kota') ?><br>
-                            <?= $form->render('LuarKota') ?>
-                            <?= $form->getLabel('LuarKota') ?>
-                            <?= $form->render('tulisKota') ?>
-                        </div>
-                        <div class="form-group">
-                            <label>Pekerjaan</label><br>
-                            <?= $form->render('pekerjaan') ?>
-                        </div>
-                        <div class="form-group">
-                            <label>Nama Instansi</label>
-                            <?= $form->render('nama_instansi') ?>
-                        </div>
-                        <div class="form-group">
-                            <label>Jenis Kelamin</label><br>
-                            <?= $form->render('Laki') ?>
-                            <?= $form->getLabel('Laki') ?>
-                            <?= $form->render('Perempuan') ?>
-                            <?= $form->getLabel('Perempuan') ?>
-                        </div>
-                        <div class="form-group">
-                            <label>Pendidikan Terakhir</label><br>
-                            <?= $form->render('SMAK') ?>
-                            <?= $form->getLabel('SMAK') ?>
-                            <?= $form->render('Diploma') ?>
-                            <?= $form->getLabel('Diploma') ?>
-                            <?= $form->render('S1') ?>
-                            <?= $form->getLabel('S1') ?>
-                            <?= $form->render('S23') ?>
-                            <?= $form->getLabel('S23') ?>
-                        </div>
-                        <div class="form-group">
-                            <?= $form->render('Lanjut') ?>
+                            <button type="submit" class="btn btn-success">Submit</button>
                         </div style="margin-left:50px;">
-                    <?= $form->endForm() ?>
                 </div>
+                </form>
             </div>
         </div>
     </main>

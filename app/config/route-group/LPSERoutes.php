@@ -32,5 +32,26 @@
 					'action' => 'storeRespond',
 				]
 			);
+
+			$this->addGet(
+                '/kuesioner',
+				[
+					'action' => 'kuesioner',
+				]
+            );
+            
+            $this->addPost(
+				'/kuesioner',
+				[
+					'action' => 'storeJawab',
+				]
+			);
+
+			$this->addGet(
+                '/hasil-kuesioner',
+				[
+					'action' => 'hasilKuesioner',
+				]
+            );
 		}
 	}

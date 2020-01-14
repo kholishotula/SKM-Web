@@ -38,8 +38,66 @@ class PersandianController extends Controller
             $this->response->redirect('persandian/data-responden');
         }
         else{
+            $this->session->set(
+                'responden',
+                [
+                    'id' => $responden->getId(),
+                ]
+            );
             $this->response->redirect('persandian/kuesioner');
         }
+    }
+
+    public function kuesionerAction(){
+        $id_pertanyaan = KuesionerPertanyaan::find(
+            [
+                'columns' => 'id_pertanyaan',
+                'conditions' => 'id_kuesioner = 3',
+            ]
+        );
+        
+        $id_pertanyaan = implode(',', array_map('intval',(array)$id_pertanyaan));
+        $pertanyaan = Pertanyaan::find("id_pertanyaan IN (".$id_pertanyaan.")");
+        $this->view->pertanyaan = $pertanyaan;
+    }
+
+    public function storeJawabAction(){
+        $id_pertanyaan = KuesionerPertanyaan::find(
+            [
+                'columns' => 'id_pertanyaan',
+                'conditions' => 'id_kuesioner = 3',
+            ]
+        );
+        $skor = 0;
+        $temp;
+        $i = 1;
+        foreach ($id_pertanyaan as $temp){
+            $skor = $skor + $this->request->getPost('poin' . $i);
+            $i++;
+        }
+        $kritik = $this->request->getPost('kritik');
+
+        $id_responden = $this->session->get('responden')['id'];
+        $date = date('Y-M-D', time());
+        $submission = new SubmitSurvei();
+        $submission->construct($id_responden, '3', $skor, $kritik, $date);
+
+        if($submission->save() == FALSE){
+            $this->response->redirect('persandian/kuesioner');
+        }
+        else{
+            $this->response->redirect('persandian/hasil-kuesioner');
+        }
+    }
+
+    public function hasilKuesionerAction(){
+        $skor = SubmitSurvei::find(
+            [
+                'columns' => 'skor_akhir',
+                'conditions' => 'id_responden = ' . $this->session->get('responden')['id'] . ' AND id_kuesioner = 3',
+            ]
+        );
+        $this->view->skor = $skor[0][skor_akhir];
     }
 };
 
