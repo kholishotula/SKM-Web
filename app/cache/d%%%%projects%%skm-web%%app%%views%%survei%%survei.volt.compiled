@@ -7,7 +7,10 @@
 <link href="<?= $this->url->get('css/fontawesome.min.css') ?>" rel="stylesheet">
 <link id="css-main" href="<?= $this->url->get('css/codebase.min.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/tagmanager.min.css') ?>" rel="stylesheet">
-<link rel="shortcut icon" href="<?= $this->url->get('assets/favicon.ico') ?>" type="image/x-icon">
+<link href="<?= $this->url->get('assets/apple-touch-icon.png') ?>" rel="apple-touch-icon" sizes="180x180">
+<link href="<?= $this->url->get('assets/favicon-32x32.png') ?>" rel="icon" type="image/png" sizes="32x32">
+<link href="<?= $this->url->get('assets/favicon-16x16.png') ?>" rel="icon" type="image/png" sizes="16x16">
+<link href="<?= $this->url->get('assets/site.webmanifest') ?>" rel="manifest">
 <script type="text/javascript" src="<?= $this->url->get('js/jquery-3.3.1.min.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/bootstrap.bundle.min.js') ?>"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.js"></script>
@@ -81,13 +84,34 @@
 
             <br><br>
             <div class="row">
-                <div class="col-10" style="font-size: larger">
+                <div class="col-10" style="font-size: 20px">
                     Silahkan pilih layanan yang Anda terima<br><br>
                 </div>
-                <div class="col-8">
-                    <a type="button" class="btn btn-lg btn-success btn-block text-black" href="<?= $this->url->get('lpse') ?>">Layanan Pengadaan Secara Elektronik (LPSE)</a>
-                    <a type="button" class="btn btn-lg btn-success btn-block text-black" href="<?= $this->url->get('ppid') ?>">Pengelola Informasi dan Dokumentasi (PPID)</a>
-                    <a type="button" class="btn btn-lg btn-success btn-block text-black" href="<?= $this->url->get('persandian') ?>">Data Statistitik Sektoral dan Persandian</a>
+            </div>
+            <div class="row justify-content-md-center" style="font-size: larger">
+                <div class="layanan col-3 text-center">
+                    <a href="<?= $this->url->get('lpse') ?>">
+                        <img src="<?= $this->url->get('assets/lpse.png') ?>" alt="LPSE" class="img-responsive">
+                        <div class="caption">
+                            <p>Layanan Pengadaan Secara Elektronik (LPSE)</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="layanan col-3 text-center">
+                    <a href="<?= $this->url->get('ppid') ?>">
+                        <img src="<?= $this->url->get('assets/ppid.png') ?>" alt="PPID" class="img-responsive">
+                        <div class="caption">
+                            <p>Pengelola Informasi dan Dokumentasi (PPID)</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="layanan col-3 text-center">
+                    <a href="<?= $this->url->get('persandian') ?>">
+                        <img src="<?= $this->url->get('assets/statistik.png') ?>" alt="Persandian" class="img-responsive">
+                        <div class="caption">
+                            <p>Data Statistik Sektoral dan Persandian</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>

@@ -19,13 +19,13 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img class="img img-fluid" src="{{url('assets/bg1.jpg')}}" alt="Dinas Komunikasi, Informatika, dan Statistika Kota Blitar">
+                            <img class="img img-fluid img-responsive" src="{{url('assets/bg1.jpg')}}" alt="Dinas Komunikasi, Informatika, dan Statistika Kota Blitar">
                         </div>
                         <div class="carousel-item">
-                            <img class="img img-fluid" src="{{url('assets/bg2.jpg')}}" alt="LPSE">
+                            <img class="img img-fluid img-responsive" src="{{url('assets/bg2.jpg')}}" alt="LPSE">
                         </div>
                         <div class="carousel-item">
-                            <img class="img img-fluid" src="{{url('assets/bg3.jpg')}}" alt="PPID">
+                            <img class="img img-fluid img-responsive" src="{{url('assets/bg3.jpg')}}" alt="PPID">
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#demo" data-slide="prev">
