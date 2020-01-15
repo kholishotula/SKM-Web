@@ -4,8 +4,9 @@ use Phalcon\Mvc\Controller;
 use Phalcon\Http\Response;
 
 use App\Forms\RespondenForm;
+use App\Events\PPIDSecureController;
 
-class PPIDController extends Controller
+class PPIDController extends PPIDSecureController
 {
 	public function ppidAction()
 	{

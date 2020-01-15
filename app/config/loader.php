@@ -12,7 +12,8 @@ $loader->registerDirs(
 
 $loader->registerNamespaces(
 	[
-		'App\Forms' => APP_PATH ."/form/"
+		'App\Forms' => APP_PATH ."/form/",
+		'App\Events' => APP_PATH. '/controllers/security/'
 	]
 	);
 

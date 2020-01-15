@@ -4,8 +4,9 @@ use Phalcon\Mvc\Controller;
 use Phalcon\Http\Response;
 
 use App\Forms\RespondenForm;
+use App\Events\LPSESecureController;
 
-class LPSEController extends Controller
+class LPSEController extends LPSESecureController
 {
 	public function lpseAction(){
 		$this->response->redirect('lpse/data-responden');

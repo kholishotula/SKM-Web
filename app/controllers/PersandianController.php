@@ -4,8 +4,9 @@ use Phalcon\Mvc\Controller;
 use Phalcon\Http\Response;
 
 use App\Forms\RespondenForm;
+use App\Events\PersandianSecureController;
 
-class PersandianController extends Controller
+class PersandianController extends PersandianSecureController
 {
 	public function persandianAction()
 	{
