@@ -50,15 +50,22 @@ class PersandianController extends PersandianSecureController
     }
 
     public function kuesionerAction(){
-        $id_pertanyaan = KuesionerPertanyaan::find(
+        $id = KuesionerPertanyaan::find(
             [
                 'columns' => 'id_pertanyaan',
                 'conditions' => 'id_kuesioner = 3',
             ]
         );
-        
-        $id_pertanyaan = implode(',', array_map('intval',(array)$id_pertanyaan));
-        $pertanyaan = Pertanyaan::find("id_pertanyaan IN (".$id_pertanyaan.")");
+        $temp;
+        $ids = array();
+        $i = 0;
+        foreach ($id as $temp){
+            array_push($ids, $id[$i][id_pertanyaan]);
+            $i++;
+        }
+        $ids = implode(',', $ids);
+
+        $pertanyaan = Pertanyaan::find("id_pertanyaan IN (".$ids.")");
         $this->view->pertanyaan = $pertanyaan;
     }
 
@@ -76,6 +83,7 @@ class PersandianController extends PersandianSecureController
             $skor = $skor + $this->request->getPost('poin' . $i);
             $i++;
         }
+        $skor = ($skor/(count($id_pertanyaan)*4))*100;
         $kritik = $this->request->getPost('kritik');
 
         $id_responden = $this->session->get('responden')['id'];

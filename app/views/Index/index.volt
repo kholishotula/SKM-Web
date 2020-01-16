@@ -44,7 +44,7 @@
                     <h4>Terima kasih telah menggunakan layanan Dinas Komunikasi, Informatika, dan Statistik Kota Blitar. Demi perbaikan kami ke depannya, silahkan isi survei kepuasan berikut.</h4>
                 </div>
                 <div class="col-4 text-center">
-                    <a type="button" class="btn btn-lg btn-outline-dark" href="{{url('panduan')}}">Panduan</a><br><br>
+                    <a type="button" class="btn btn-lg btn-outline-dark myButton" href="{{url('panduan')}}">Panduan</a><br><br>
                     <a type="button" class="btn btn-lg btn-outline-dark" href="{{url('survei')}}">Isi Survei</a>
                 </div>
             </div>

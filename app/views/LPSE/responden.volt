@@ -11,7 +11,7 @@
             <hr id="line">
 
             <br><br>
-            <div class="row">
+            <div class="row" style="font-size: larger">
                 <div class="col-md-6">
                     {{ form.startForm()}}
                         <div class="form-group">

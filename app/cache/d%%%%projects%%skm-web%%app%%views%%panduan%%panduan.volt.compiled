@@ -20,8 +20,8 @@
 <body>
 	<!-- Header Content -->
         <!-- Nav tabs -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-            <a class="nav-link" href="<?= $this->url->get() ?>">Home</a>
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #945455">
+            <a class="nav-link text-black" href="<?= $this->url->get() ?>">Home</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -29,43 +29,43 @@
                 <ul class="navbar-nav mr-auto">
                     <?php if ($this->session->get('auth')) { ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= $this->url->get('kuesioner') ?>">Kuesioner</a>
+                            <a class="nav-link text-black" href="<?= $this->url->get('kuesioner') ?>">Kuesioner</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= $this->url->get('pertanyaan') ?>">Pertanyaan</a>
+                            <a class="nav-link text-black" href="<?= $this->url->get('pertanyaan') ?>">Pertanyaan</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= $this->url->get('tampil-rekap') ?>">Laporan Rekapitulasi</a>
+                            <a class="nav-link text-black" href="<?= $this->url->get('tampil-rekap') ?>">Laporan Rekapitulasi</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= $this->url->get('submission') ?>">Submission Survei</a>
+                            <a class="nav-link text-black" href="<?= $this->url->get('submission') ?>">Submission Survei</a>
                         </li>
                     <?php } else { ?> 
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= $this->url->get('panduan') ?>">Panduan</a>
+                            <a class="nav-link text-black" href="<?= $this->url->get('panduan') ?>">Panduan</a>
                         </li> 
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= $this->url->get('survei') ?>">Survei Kuesioner</a>
+                            <a class="nav-link text-black" href="<?= $this->url->get('survei') ?>">Survei Kuesioner</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= $this->url->get('laporan') ?>">Laporan Survei</a>
+                            <a class="nav-link text-black" href="<?= $this->url->get('laporan') ?>">Laporan Survei</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= $this->url->get('laporan-rekap') ?>">Laporan Rekapitulasi</a>
+                            <a class="nav-link text-black" href="<?= $this->url->get('laporan-rekap') ?>">Laporan Rekapitulasi</a>
                         </li>
                     <?php } ?>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <?php if ($this->session->get('auth')) { ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= $this->url->get('profile') ?>">Selamat Datang, <span class="text-info"><?= $this->session->get('auth')['username'] ?></span></a>
+                            <a class="nav-link text-black" href="<?= $this->url->get('profile') ?>">Selamat Datang, <span class="text-info"><?= $this->session->get('auth')['username'] ?></span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn btn-danger" href="<?= $this->url->get('logout') ?>">Log Out</a>
                         </li> 
                     <?php } else { ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= $this->url->get('login') ?>">Log In</a>
+                            <a class="nav-link text-black" href="<?= $this->url->get('login') ?>">Log In</a>
                         </li>
                     <?php } ?>
                 </ul>
@@ -85,14 +85,37 @@
 
             <br><br>
             <div class="row">
-                <div class="col-10" style="font-size: larger">
+                <div class="col-8" style="font-size: larger">
                     Bapak/Ibu/Saudara Yang Terhormat,<br><br>
                     <p class="text-justify">
                         Survei Kepuasan Masyarakat (SKM) adalah alat untuk mengukur kepuasan masyarakat secara komprehensif sebagai pengguna layanan berdasar atas pendapat masyarakat dalam memperoleh pelayanan dari penyelenggara pelayanan publik. Bagi penyelenggara, SKM ini bertujuan sebagai upaya untuk meningkatkan kualitas pelayanan publik dan mengetahui kinerja pelayanan aparatur pemerintah kepada masyarakat.<br><br>
-                        Penyelenggara pelayanan publik wajib melakukan Survei Kepuasan Masyarakat secara berkala minimal 1 (satu) kali setahun. Survei ini dilakukan berdasar atas Peraturan Menteri Pendayagunaan Aparatur Negara dan Reformasi Birokrasi Nomor 16 Tahun 2014 Tentang Pedoman Survei Kepuasan Masyarakat Terhadap Penyelenggaraan Pelayanan Publik.<br><br>
-                        Berikut adalah panduan pengisian survei :
+                        Penyelenggara pelayanan publik wajib melakukan Survei Kepuasan Masyarakat secara berkala minimal 1 (satu) kali setahun. Survei ini dilakukan berdasar atas Peraturan Menteri Pendayagunaan Aparatur Negara dan Reformasi Birokrasi Nomor 16 Tahun 2014 Tentang Pedoman Survei Kepuasan Masyarakat Terhadap Penyelenggaraan Pelayanan Publik.
                     </p>
-                    <!--VIDEO DISINI-->
+                </div>
+                <div class="col-4">
+                    <img src="<?= $this->url->get('assets/help.png') ?>" alt="panduan" class="img-responsive img-fluid">
+                </div>
+            </div>
+            <div class="row" style="font-size: larger; text-align: center">
+                <div class="col-md-8 mr-auto ml-auto" >
+                    <h4>Berikut adalah panduan pengisian survei :</h4>
+                    <div class="card card-raised card-carousel" style="border: solid black 0px;">
+                        <div id="carouselPanduan" class="carousel slide" data-ride="carousel" data-interval="3000">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img class="d-block w-100" src="/img/cara/Ride/1.png" alt="Slide Satu">
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselPanduan" style="color:black; font-size:200%;" role="button" data-slide="prev">
+                                <i class="material-icons"></i>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselPanduan" style="color:black; font-size:200%;" role="button" data-slide="next">
+                                <i class="material-icons"></i>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
                     <p>
                         Silahkan isi survei <a class="text-info font-weight-bold" href="<?= $this->url->get('survei') ?>">DISINI</a>
                     </p>

@@ -16,7 +16,7 @@
                     <h3>Terima kasih Anda telah meluangkan waktu untuk mengisi survei kami</h3>
                 </div>
                 <div class="row" style="font-size: larger">
-                    <p>Skor pelayanan Persandian kami : {{ skor }}</p>
+                    <p>Skor pelayanan Persandian kami : {{ skor }}%</p>
                 </div>
                 <a type="button" class="btn btn-success text-black" href="{{url('survei')}}" style="font-size: larger">Isi Kuesioner Lain</a>
             </center>

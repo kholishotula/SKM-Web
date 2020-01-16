@@ -21,7 +21,7 @@
                     <p>
                         <!--LINK HASIL DISINI-->
                         {% for lapor in laporan %}
-                            <a href='{{ lapor.getFile() }}'>Survei Kepuasan Masyarakat Tahun {{ lapor.getTahunLapor() }}</a><br>
+                            <a href='{{ lapor.getFile() }}' download>Survei Kepuasan Masyarakat Tahun {{ lapor.getTahunLapor() }}</a><br>
                         {% endfor %}
                     </p>
                 </div>

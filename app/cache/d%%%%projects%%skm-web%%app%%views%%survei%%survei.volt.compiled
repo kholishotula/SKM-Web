@@ -89,25 +89,25 @@
                 </div>
             </div>
             <div class="row justify-content-md-center" style="font-size: larger">
-                <div class="layanan col-3 text-center">
+                <div class="thumbnail col-3 text-center">
                     <a href="<?= $this->url->get('lpse') ?>">
-                        <img src="<?= $this->url->get('assets/lpse.png') ?>" alt="LPSE" class="img-responsive">
+                        <img src="<?= $this->url->get('assets/lpse.png') ?>" alt="LPSE" class="img-responsive img-fluid">
                         <div class="caption">
                             <p>Layanan Pengadaan Secara Elektronik (LPSE)</p>
                         </div>
                     </a>
                 </div>
-                <div class="layanan col-3 text-center">
+                <div class="thumbnail col-3 text-center">
                     <a href="<?= $this->url->get('ppid') ?>">
-                        <img src="<?= $this->url->get('assets/ppid.png') ?>" alt="PPID" class="img-responsive">
+                        <img src="<?= $this->url->get('assets/ppid.png') ?>" alt="PPID" class="img-responsive img-fluid">
                         <div class="caption">
                             <p>Pengelola Informasi dan Dokumentasi (PPID)</p>
                         </div>
                     </a>
                 </div>
-                <div class="layanan col-3 text-center">
+                <div class="thumbnail col-3 text-center">
                     <a href="<?= $this->url->get('persandian') ?>">
-                        <img src="<?= $this->url->get('assets/statistik.png') ?>" alt="Persandian" class="img-responsive">
+                        <img src="<?= $this->url->get('assets/statistik.png') ?>" alt="Persandian" class="img-responsive img-fluid">
                         <div class="caption">
                             <p>Data Statistik Sektoral dan Persandian</p>
                         </div>

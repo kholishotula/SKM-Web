@@ -18,7 +18,7 @@
             <div class="row justify-content-md-center" style="font-size: larger">
                 <div class="thumbnail col-3 text-center">
                     <a href="{{url('lpse')}}">
-                        <img src="{{url('assets/lpse.png')}}" alt="LPSE" class="img-responsive">
+                        <img src="{{url('assets/lpse.png')}}" alt="LPSE" class="img-responsive img-fluid">
                         <div class="caption">
                             <p>Layanan Pengadaan Secara Elektronik (LPSE)</p>
                         </div>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="thumbnail col-3 text-center">
                     <a href="{{url('ppid')}}">
-                        <img src="{{url('assets/ppid.png')}}" alt="PPID" class="img-responsive">
+                        <img src="{{url('assets/ppid.png')}}" alt="PPID" class="img-responsive img-fluid">
                         <div class="caption">
                             <p>Pengelola Informasi dan Dokumentasi (PPID)</p>
                         </div>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="thumbnail col-3 text-center">
                     <a href="{{url('persandian')}}">
-                        <img src="{{url('assets/statistik.png')}}" alt="Persandian" class="img-responsive">
+                        <img src="{{url('assets/statistik.png')}}" alt="Persandian" class="img-responsive img-fluid">
                         <div class="caption">
                             <p>Data Statistik Sektoral dan Persandian</p>
                         </div>
