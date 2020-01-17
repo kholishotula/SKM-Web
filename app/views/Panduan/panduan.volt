@@ -24,13 +24,22 @@
                 </div>
             </div>
             <div class="row" style="font-size: larger; text-align: center">
-                <div class="col-md-8 mr-auto ml-auto" >
+                <div class="col-md-6 mr-auto ml-auto" >
                     <h4>Berikut adalah panduan pengisian survei :</h4>
                     <div class="card card-raised card-carousel" style="border: solid black 0px;">
-                        <div id="carouselPanduan" class="carousel slide" data-ride="carousel" data-interval="3000">
+                        <div id="carouselPanduan" class="carousel slide" data-ride="carousel" data-interval="4000">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img class="d-block w-100" src="/img/cara/Ride/1.png" alt="Slide Satu">
+                                    <img class="d-block w-100" src="{{url('assets/panduan/1.gif')}}" alt="Slide Satu">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="{{url('assets/panduan/2.gif')}}" alt="Slide Dua">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="{{url('assets/panduan/3.gif')}}" alt="Slide Tiga">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="{{url('assets/panduan/4.gif')}}" alt="Slide Empat">
                                 </div>
                             </div>
                             <a class="carousel-control-prev" href="#carouselPanduan" style="color:black; font-size:200%;" role="button" data-slide="prev">

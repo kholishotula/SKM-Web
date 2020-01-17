@@ -15,7 +15,7 @@ a:5:{i:0;s:1371:"<!DOCTYPE html>
 <script type="text/javascript" src="<?= $this->url->get('js/bootstrap.bundle.min.js') ?>"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>  
-	<title>";s:5:"title";a:1:{i:0;a:4:{s:4:"type";i:357;s:5:"value";s:1:" ";s:4:"file";s:47:"D:\Projects\SKM-Web\app/views\layouts\base.volt";s:4:"line";i:5;}}i:1;s:3188:"</title>
+	<title>";s:5:"title";a:1:{i:0;a:4:{s:4:"type";i:357;s:5:"value";s:1:" ";s:4:"file";s:47:"D:\Projects\SKM-Web\app/views\layouts\base.volt";s:4:"line";i:5;}}i:1;s:2978:"</title>
 </head>
 <body>
 	<!-- Header Content -->
@@ -49,9 +49,6 @@ a:5:{i:0;s:1371:"<!DOCTYPE html>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-black" href="<?= $this->url->get('laporan') ?>">Laporan Survei</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-black" href="<?= $this->url->get('laporan-rekap') ?>">Laporan Rekapitulasi</a>
                         </li>
                     <?php } ?>
                 </ul>

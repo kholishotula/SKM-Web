@@ -30,9 +30,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-black" href="<?= $this->url->get('laporan') ?>">Laporan Survei</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-black" href="<?= $this->url->get('laporan-rekap') ?>">Laporan Rekapitulasi</a>
-                        </li>
                     <?php } ?>
                 </ul>
                 <ul class="navbar-nav ml-auto">

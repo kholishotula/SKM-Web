@@ -50,9 +50,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-black" href="<?= $this->url->get('laporan') ?>">Laporan Survei</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-black" href="<?= $this->url->get('laporan-rekap') ?>">Laporan Rekapitulasi</a>
-                        </li>
                     <?php } ?>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -79,7 +76,7 @@
 
             <br><br>
             <div class="row" style="font-size: larger">
-                <div class="col-12"><?= $this->flashSession->output() ?></div>
+                <div class="col-12" style="font-size: 16px"><?= $this->flashSession->output() ?></div>
                 <div class="col-md-6">
                     <?= $form->startForm() ?>
                         <div class="form-group">
