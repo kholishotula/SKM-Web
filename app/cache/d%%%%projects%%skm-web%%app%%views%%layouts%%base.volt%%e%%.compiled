@@ -15,12 +15,12 @@ a:5:{i:0;s:1371:"<!DOCTYPE html>
 <script type="text/javascript" src="<?= $this->url->get('js/bootstrap.bundle.min.js') ?>"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>  
-	<title>";s:5:"title";a:1:{i:0;a:4:{s:4:"type";i:357;s:5:"value";s:1:" ";s:4:"file";s:47:"D:\Projects\SKM-Web\app/views\layouts\base.volt";s:4:"line";i:5;}}i:1;s:3206:"</title>
+	<title>";s:5:"title";a:1:{i:0;a:4:{s:4:"type";i:357;s:5:"value";s:1:" ";s:4:"file";s:47:"D:\Projects\SKM-Web\app/views\layouts\base.volt";s:4:"line";i:5;}}i:1;s:3188:"</title>
 </head>
 <body>
 	<!-- Header Content -->
         <!-- Nav tabs -->
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #945455; font-family: Courier New, Courier, monospace; font-size: 16px">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" style="font-family: Courier New, Courier, monospace; font-size: 16px">
             <a class="nav-link text-black" href="<?= $this->url->get() ?>">Home</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

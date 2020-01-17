@@ -11,7 +11,7 @@
 
             <br><br>
             <div class="row">
-                <div class="col-10" style="font-size: 20px">
+                <div class="col-12 text-center" style="font-size: 20px">
                     Silahkan pilih layanan yang Anda terima<br><br>
                 </div>
             </div>

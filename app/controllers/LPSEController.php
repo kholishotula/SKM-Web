@@ -8,6 +8,10 @@ use App\Events\LPSESecureController;
 
 class LPSEController extends LPSESecureController
 {
+    public function initialize(){
+        $this->messages = '';
+    }
+    
 	public function lpseAction(){
 		$this->response->redirect('lpse/data-responden');
     }
@@ -17,6 +21,21 @@ class LPSEController extends LPSESecureController
     }
 
     public function storeRespondAction(){
+        if(!$this->request->isPost())
+            $this->response->redirect('lpse/data-responden');
+
+        $form = new RespondenForm();
+
+        if(!$form->isValid($this->request->getPost())){
+            foreach($form->getMessages() as $msg){
+                if($msg == 'Harap isi bidang asal kota' || $msg == 'Harap isi bidang pekerjaan')
+                    continue;
+                $this->messages = $msg;
+                $this->flashSession->error($msg);
+            }
+            if($this->messages != NULL)
+                return $this->response->redirect('lpse/data-responden');
+        }
         $nama = $this->request->getPost('nama');
         $nama_instansi = $this->request->getPost('nama_instansi');
         $jabatan = $this->request->getPost('jabatan');
@@ -26,7 +45,6 @@ class LPSEController extends LPSESecureController
         $responden = new Responden();
 
         $responden->construct($nama, '', $jabatan, $nama_instansi, $jenis_kelamin, $pendidikan);
-
         if($responden->save() == FALSE){
             $this->response->redirect('lpse/data-responden');
         }
@@ -36,7 +54,7 @@ class LPSEController extends LPSESecureController
                 [
                     'id' => $responden->getId(),
                 ]
-              );
+            );
             $this->response->redirect('lpse/kuesioner');
         }
     }
@@ -62,6 +80,10 @@ class LPSEController extends LPSESecureController
     }
 
     public function storeJawabAction(){
+        $kritik = $this->request->getPost('kritik');
+        if($kritik == null){
+            $this->flashSession->error('Harap isi kritik dan saran');
+        }
         $id_pertanyaan = KuesionerPertanyaan::find(
             [
                 'columns' => 'id_pertanyaan',
@@ -72,11 +94,14 @@ class LPSEController extends LPSESecureController
         $temp;
         $i = 1;
         foreach ($id_pertanyaan as $temp){
+            if($this->request->getPost('poin' . $i) == null){
+                $this->flashSession->error('Harap isi semua pertanyaan');
+                return $this->response->redirect('lpse/kuesioner');
+            }
             $skor = $skor + $this->request->getPost('poin' . $i);
             $i++;
         }
         $skor = ($skor/(count($id_pertanyaan)*4))*100;
-        $kritik = $this->request->getPost('kritik');
 
         $id_responden = $this->session->get('responden')['id'];
         $date = date('Y-m-d', time());

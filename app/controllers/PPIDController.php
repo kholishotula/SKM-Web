@@ -19,6 +19,9 @@ class PPIDController extends PPIDSecureController
     }
 
     public function storeRespondAction(){
+        if(!$this->request->isPost())
+            $this->response->redirect('ppid/data-responden');
+
         $nama = $this->request->getPost('nama');
         $kota = $this->request->getPost('asal');
         if($kota == 'Luar'){
@@ -28,6 +31,21 @@ class PPIDController extends PPIDSecureController
         $nama_instansi = $this->request->getPost('nama_instansi');
         $jenis_kelamin = $this->request->getPost('jenis_kelamin');
         $pendidikan = $this->request->getPost('pendidikan');
+
+        $form = new RespondenForm();
+
+        if(!$form->isValid($this->request->getPost())){
+            foreach($form->getMessages() as $msg){
+                if($kota == 'Kota Blitar'){
+                    if($msg == 'Harap isi bidang asal kota')
+                        continue;
+                }
+                $this->messages = $msg;
+                $this->flashSession->error($msg);
+            }
+            if($this->messages != NULL)
+                return $this->response->redirect('ppid/data-responden');
+        }
 
         $responden = new Responden();
 
@@ -68,6 +86,10 @@ class PPIDController extends PPIDSecureController
     }
 
     public function storeJawabAction(){
+        $kritik = $this->request->getPost('kritik');
+        if($kritik == null){
+            $this->flashSession->error('Harap isi kritik dan saran');
+        }
         $id_pertanyaan = KuesionerPertanyaan::find(
             [
                 'columns' => 'id_pertanyaan',
@@ -76,13 +98,16 @@ class PPIDController extends PPIDSecureController
         );
         $skor = 0;
         $temp;
-        $i = 1;
+        $i = 1;        
         foreach ($id_pertanyaan as $temp){
+            if($this->request->getPost('poin' . $i) == null){
+                $this->flashSession->error('Harap isi semua pertanyaan');
+                return $this->response->redirect('ppid/kuesioner');
+            }
             $skor = $skor + $this->request->getPost('poin' . $i);
             $i++;
         }
         $skor = ($skor/(count($id_pertanyaan)*4))*100;
-        $kritik = $this->request->getPost('kritik');
 
         $id_responden = $this->session->get('responden')['id'];
         $date = date('Y-M-D', time());

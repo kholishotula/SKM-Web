@@ -2,7 +2,7 @@
 
 use Phalcon\Security;
 use Phalcon\Http\Response\Cookies;
-use Phalcon\Flash\Direct as FlashDirect;
+use Phalcon\Flash\Session as FlashSession;
 use Phalcon\Mvc\Dispatcher as MvcDispatcher;
 use Phalcon\Events\Event;
 use Phalcon\Events\Manager as EventsManager;
@@ -97,9 +97,9 @@ $di->set(
 
 // Register the flash service with custom CSS classes
 $di->set(
-    'flash',
+    'flashSession',
     function () {
-        $flash = new FlashDirect(
+        $flashSession = new FlashSession(
             [
                 'error'   => 'alert alert-danger',
                 'success' => 'alert alert-success',
@@ -108,7 +108,7 @@ $di->set(
             ]
         );
 
-        return $flash;
+        return $flashSession;
     }
 );
 

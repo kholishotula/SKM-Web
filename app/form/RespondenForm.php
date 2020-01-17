@@ -9,6 +9,7 @@ use Phalcon\Forms\Element\Radio;
 use Phalcon\Forms\Element\Submit;
 
 use Phalcon\Validation;
+use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Alnum;
 
 use Phalcon\Tag;
@@ -20,6 +21,11 @@ class RespondenForm extends BaseForm {
             "placeholder" => "Masukkan nama Anda",
             "class" => "form-control"
         ]);
+
+        $nama->addValidator(new PresenceOf(
+        [
+            'message' => 'Harap isi bidang nama'
+        ]));
 
         $nama->addValidator(new Alnum(
         [
@@ -34,17 +40,32 @@ class RespondenForm extends BaseForm {
             'placeholder' => 'Jika luar kota, sebutkan :',
         ]);
 
+        $tulisKota->addValidator(new PresenceOf(
+        [
+            'message' => 'Harap isi bidang asal kota'
+        ]));
+
         $pekerjaan = new Text ('pekerjaan',
         [
             "placeholder" => "Masukkan pekerjaan Anda",
             "class" => "form-control"
         ]);
 
+        $pekerjaan->addValidator(new PresenceOf(
+        [
+            'message' => 'Harap isi bidang pekerjaan'
+        ]));
+
         $nama_instansi = new Text ('nama_instansi',
         [
             "placeholder" => "Masukkan nama instansi tempat Anda bekerja",
             "class" => "form-control"
         ]);
+
+        $nama_instansi->addValidator(new PresenceOf(
+        [
+            'message' => 'Harap isi bidang nama instansi'
+        ]));
 
         $nama_instansi->addValidator(new Alnum(
         [
