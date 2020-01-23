@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <p>
-                        Silahkan isi survei <a class="text-info font-weight-bold" href="{{url('survei')}}">DISINI</a>
+                        Silahkan isi survei <a id="survei" class="text-info font-weight-bold" href="{{url('survei')}}">DISINI</a>
                     </p>
                 </div>
             </div>

@@ -6,18 +6,14 @@ use Phalcon\Mvc\Dispatcher;
 
 use App\Forms\LoginForm;
 use App\Forms\ProfilForm;
+use App\Events\AdminSecureController;
 
-
-class LoginController extends Controller
+class LoginController extends AdminSecureController
 {
     private $message = "";
 
     public function createAction()
     {
-        if($this->session->has('auth'))
-            $this->response->redirect('profile');
-
-
         $this->view->message=$this->message;
         $user_rem = null;
         $remCookies = $this->cookies->get('remember');

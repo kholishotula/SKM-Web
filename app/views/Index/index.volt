@@ -56,7 +56,7 @@
         </div>
     </main>
     {% if session.get('auth') %}
-        <a href="#tambahAdminModal" class="tambah" data-toggle="modal"><button class="btn btn-primary btn-circle btn-lg add-admin-btn" data-toggle="tooltip" title="Tambah Operator"><i class="fa fa-user"></i></button></a>
+        <a href="#tambahAdminModal" class="tambah" data-toggle="modal"><button class="btn btn-primary btn-circle add-admin-btn" data-toggle="tooltip" title="Tambah Operator" style="width: 60px; height: 60px"><i class="fa fa-user-plus" style="font-size: 30px"></i></button></a>
     {% endif %}
 </div>
 

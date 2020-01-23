@@ -5,8 +5,9 @@ use Phalcon\Http\Response;
 use Phalcon\Paginator\Adapter\Model as PaginatorModel;
 
 use App\Forms\PertanyaanForm;
+use App\Events\AdminPertanyaanSecureController;
 
-class PertanyaanController extends Controller
+class PertanyaanController extends AdminPertanyaanSecureController
 {   
     public function init(){
         $this->messages = ['konten_pertanyaan' => ''];

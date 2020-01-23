@@ -28,11 +28,17 @@ class KuesionerForm extends BaseForm {
         ]);
         $kritik_saran->setLabel('Keterangan Kuesioner');
 
-        $konten_layanan = new Text ('kategori_layanan',
-        [
-            "placeholder" => "Masukkan Kategori Layanan",
-            "class" => "form-control"
-        ]);
+        $konten_layanan = new Select ('kategori_layanan', array(
+            'LPSE' => 'LPSE',
+                            'PPID' => 'PPID',
+                            'Persandian' => 'Persandian'),
+            array(
+                "useEmpty" => true,
+                "emptyText" => "Pilih kategori layanan",
+                "emptyValue" => "",
+                "class" => "form-control",
+            )
+        );
         $konten_layanan->setLabel('Tambah Kategori Layanan');
 
         $konten_pertanyaan = new Text ('pilihan_pertanyaan',

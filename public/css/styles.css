@@ -289,4 +289,11 @@ table.table .avatar {
 .nav-item a:hover {
     background-color: #dddddd;
     border-radius: 15%;
-  }
+}
+
+#survei:hover {
+    padding: 2px;
+    font-size: larger;
+    background-color: #dddddd;
+    border-radius: 15%;
+}

@@ -5,8 +5,9 @@ use Phalcon\Http\Response;
 use Phalcon\Paginator\Adapter\Model as PaginatorModel;
 
 use App\Forms\LaporanRekapForm;
+use App\Events\AdminLaporanSecureController;
 
-class LaporanController extends Controller
+class LaporanController extends AdminLaporanSecureController
 {
 	public function initialize(){
 		$this->messages = [

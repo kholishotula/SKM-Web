@@ -5,21 +5,17 @@ use Phalcon\Http\Response;
 use Phalcon\Paginator\Adapter\Model as PaginatorModel;
 
 use App\Forms\KuesionerForm;
+use App\Events\AdminKuesionerSecureController;
 
-class KuesionerController extends Controller
+class KuesionerController extends AdminKuesionerSecureController
 {
 	public function initialize(){
         $this->messages = [
 			'kode_verifikasi' => '',
-			'kritik_saran' => ''
+			'keterangan' => ''
 		];
         $this->notif = "";
         $this->error = "";
-    }
-	
-	public function laporanAction()
-	{
-		
     }
     
 	public function createAction()
@@ -36,10 +32,6 @@ class KuesionerController extends Controller
             $this->response->redirect();
 
         $form = new KuesionerForm();
-        if(!$this->session->has('auth')){
-            $this->error = 'Anda harus log in terlebih dahulu untuk menambahkan data';
-            $this->dispatcher->forward(['action' => 'index']);
-        }
 
         if(!$form->isValid($this->request->getPost())){
             foreach($form->getMessages() as $msg){
@@ -47,19 +39,22 @@ class KuesionerController extends Controller
             }
         }
 
-        if($this->messages['kode_verifikasi']==null && $this->messages['kritik_saran']==null){
+        if($this->messages['kode_verifikasi']==null && $this->messages['keterangan']==null){
             $id_admin = $this->session->get('auth')['id'];
-            $model_kuesioner = 'Online'; 
-            $kritik_saran = $this->request->getPost('kritik_saran');
+            $keterangan = $this->request->getPost('keterangan');
             $kode_verifikasi = $this->request->getPost('kode_verifikasi');
             $nama_layanan = $this->request->getPost('kategori_layanan');
             $hasil_tags = $this->request->getPost('pilihan');
+
+            if($nama_layanan==""){
+                $this->response->redirect('kuesioner');
+            }
 
             $stringArray = preg_replace("/[^0-9\,]/", "", $hasil_tags);
             $intArray = array_map('intval',explode(",",$stringArray));
     
             $kuesioner_survei = new Kuesioner();
-            $kuesioner_survei->construct($id_admin,$model_kuesioner,$kritik_saran,$kode_verifikasi,$nama_layanan);
+            $kuesioner_survei->construct($id_admin,$nama_layanan,$keterangan,$kode_verifikasi);
 
             if($kuesioner_survei->save()){
                 $this->notif = 'Kuesioner berhasil ditambahkan';
@@ -153,7 +148,7 @@ class KuesionerController extends Controller
                 $id_admin = $this->session->get('auth')['id'];
                 $model_kuesioner = 'Online'; 
                 $kode_verifikasi = $this->request->getPost('kode_verifikasi');
-                $keterangan_kuesioner = $this->request->getPost('kritik_saran');
+                $keterangan_kuesioner = $this->request->getPost('keterangan');
                 $nama_layanan = $this->request->getPost('kategori_layanan');
                 $pertanyaan =$this->request->getPost('pilihan');
 
@@ -192,7 +187,7 @@ class KuesionerController extends Controller
             $this->response->redirect('kuesioner');
         }
         else{
-            $query1 = $this->modelsManager->createQuery('SELECT * FROM Kuesioner WHERE CONCAT(id_kuesioner,kritik_saran,kode_verifikasi) LIKE "%'.$cari.'%"');
+            $query1 = $this->modelsManager->createQuery('SELECT * FROM Kuesioner WHERE CONCAT(id_kuesioner,keterangan,kode_verifikasi) LIKE "%'.$cari.'%"');
             $temp = $query1->execute();
             $pertanyaan = Pertanyaan::find();
 

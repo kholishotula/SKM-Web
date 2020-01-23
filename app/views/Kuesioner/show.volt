@@ -47,6 +47,7 @@
                         </span>
                     </th>
                     <th>No.</th>
+                    <th>Kategori Layanan</th>
                     <th>Keterangan Kuesioner</th>
                     <th>Kode Verifikasi</th>
                     <th>Aksi</th>
@@ -63,7 +64,8 @@
 						</span>
 					</td>
                     <td>{{skipped + i}}</td>
-                    <td>{{t.getKritikSaran()}}</td>
+                    <td>{{t.getKategori()}}</td>
+                    <td>{{t.getKeterangan()}}</td>
                     <td>{{t.getKode()}}</td>
                     <td>
                         <a href="#editKuesionerModal{{t.getId()}}" class="edit" data-toggle="modal"><i class="fa fa-pencil" data-toggle="tooltip" title="Ubah"></i></a>
@@ -101,7 +103,7 @@
                     </div>
                     <div class="form-group">
                         <label><b>{{form.getLabel('kritik_saran')}}</b></label>
-                        <input type='text' name='kritik_saran' class="form-control" value="{{t.getKritikSaran()}}" placeholder="Masukkan Keterangan">
+                        <input type='text' name='kritik_saran' class="form-control" value="{{t.getKeterangan()}}" placeholder="Masukkan Keterangan">
                     </div>
                     <div class="form-group">
                         <label><b>{{form.getLabel('kategori_layanan')}}</b></label>
