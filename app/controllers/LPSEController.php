@@ -4,9 +4,14 @@ use Phalcon\Mvc\Controller;
 use Phalcon\Http\Response;
 
 use App\Forms\RespondenForm;
+use App\Events\LPSESecureController;
 
-class LPSEController extends Controller
+class LPSEController extends LPSESecureController
 {
+    public function initialize(){
+        $this->messages = '';
+    }
+    
 	public function lpseAction(){
 		$this->response->redirect('lpse/data-responden');
     }
@@ -16,6 +21,21 @@ class LPSEController extends Controller
     }
 
     public function storeRespondAction(){
+        if(!$this->request->isPost())
+            $this->response->redirect('lpse/data-responden');
+
+        $form = new RespondenForm();
+
+        if(!$form->isValid($this->request->getPost())){
+            foreach($form->getMessages() as $msg){
+                if($msg == 'Harap isi bidang asal kota' || $msg == 'Harap isi bidang pekerjaan')
+                    continue;
+                $this->messages = $msg;
+                $this->flashSession->error($msg);
+            }
+            if($this->messages != NULL)
+                return $this->response->redirect('lpse/data-responden');
+        }
         $nama = $this->request->getPost('nama');
         $nama_instansi = $this->request->getPost('nama_instansi');
         $jabatan = $this->request->getPost('jabatan');
@@ -25,7 +45,6 @@ class LPSEController extends Controller
         $responden = new Responden();
 
         $responden->construct($nama, '', $jabatan, $nama_instansi, $jenis_kelamin, $pendidikan);
-
         if($responden->save() == FALSE){
             $this->response->redirect('lpse/data-responden');
         }
@@ -35,25 +54,36 @@ class LPSEController extends Controller
                 [
                     'id' => $responden->getId(),
                 ]
-              );
+            );
             $this->response->redirect('lpse/kuesioner');
         }
     }
 
     public function kuesionerAction(){
-        $id_pertanyaan = KuesionerPertanyaan::find(
+        $id = KuesionerPertanyaan::find(
             [
                 'columns' => 'id_pertanyaan',
                 'conditions' => 'id_kuesioner = 1',
             ]
         );
-        
-        $id_pertanyaan = implode(',', array_map('intval',(array)$id_pertanyaan));
-        $pertanyaan = Pertanyaan::find("id_pertanyaan IN (".$id_pertanyaan.")");
+        $temp;
+        $ids = array();
+        $i = 0;
+        foreach ($id as $temp){
+            array_push($ids, $id[$i][id_pertanyaan]);
+            $i++;
+        }
+        $ids = implode(',', $ids);
+
+        $pertanyaan = Pertanyaan::find("id_pertanyaan IN (".$ids.")");
         $this->view->pertanyaan = $pertanyaan;
     }
 
     public function storeJawabAction(){
+        $kritik = $this->request->getPost('kritik');
+        if($kritik == null){
+            $this->flashSession->error('Harap isi kritik dan saran');
+        }
         $id_pertanyaan = KuesionerPertanyaan::find(
             [
                 'columns' => 'id_pertanyaan',
@@ -64,13 +94,17 @@ class LPSEController extends Controller
         $temp;
         $i = 1;
         foreach ($id_pertanyaan as $temp){
+            if($this->request->getPost('poin' . $i) == null){
+                $this->flashSession->error('Harap isi semua pertanyaan');
+                return $this->response->redirect('lpse/kuesioner');
+            }
             $skor = $skor + $this->request->getPost('poin' . $i);
             $i++;
         }
-        $kritik = $this->request->getPost('kritik');
+        $skor = ($skor/(count($id_pertanyaan)*4))*100;
 
         $id_responden = $this->session->get('responden')['id'];
-        $date = date('Y-M-D', time());
+        $date = date('Y-m-d', time());
         $submission = new SubmitSurvei();
         $submission->construct($id_responden, '1', $skor, $kritik, $date);
 

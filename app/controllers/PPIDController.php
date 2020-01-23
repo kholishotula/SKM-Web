@@ -4,8 +4,9 @@ use Phalcon\Mvc\Controller;
 use Phalcon\Http\Response;
 
 use App\Forms\RespondenForm;
+use App\Events\PPIDSecureController;
 
-class PPIDController extends Controller
+class PPIDController extends PPIDSecureController
 {
 	public function ppidAction()
 	{
@@ -18,6 +19,9 @@ class PPIDController extends Controller
     }
 
     public function storeRespondAction(){
+        if(!$this->request->isPost())
+            $this->response->redirect('ppid/data-responden');
+
         $nama = $this->request->getPost('nama');
         $kota = $this->request->getPost('asal');
         if($kota == 'Luar'){
@@ -27,6 +31,21 @@ class PPIDController extends Controller
         $nama_instansi = $this->request->getPost('nama_instansi');
         $jenis_kelamin = $this->request->getPost('jenis_kelamin');
         $pendidikan = $this->request->getPost('pendidikan');
+
+        $form = new RespondenForm();
+
+        if(!$form->isValid($this->request->getPost())){
+            foreach($form->getMessages() as $msg){
+                if($kota == 'Kota Blitar'){
+                    if($msg == 'Harap isi bidang asal kota')
+                        continue;
+                }
+                $this->messages = $msg;
+                $this->flashSession->error($msg);
+            }
+            if($this->messages != NULL)
+                return $this->response->redirect('ppid/data-responden');
+        }
 
         $responden = new Responden();
 
@@ -47,19 +66,30 @@ class PPIDController extends Controller
     }
 
     public function kuesionerAction(){
-        $id_pertanyaan = KuesionerPertanyaan::find(
+        $id = KuesionerPertanyaan::find(
             [
                 'columns' => 'id_pertanyaan',
                 'conditions' => 'id_kuesioner = 2',
             ]
         );
-        
-        $id_pertanyaan = implode(',', array_map('intval',(array)$id_pertanyaan));
-        $pertanyaan = Pertanyaan::find("id_pertanyaan IN (".$id_pertanyaan.")");
+        $temp;
+        $ids = array();
+        $i = 0;
+        foreach ($id as $temp){
+            array_push($ids, $id[$i][id_pertanyaan]);
+            $i++;
+        }
+        $ids = implode(',', $ids);
+
+        $pertanyaan = Pertanyaan::find("id_pertanyaan IN (".$ids.")");
         $this->view->pertanyaan = $pertanyaan;
     }
 
     public function storeJawabAction(){
+        $kritik = $this->request->getPost('kritik');
+        if($kritik == null){
+            $this->flashSession->error('Harap isi kritik dan saran');
+        }
         $id_pertanyaan = KuesionerPertanyaan::find(
             [
                 'columns' => 'id_pertanyaan',
@@ -68,12 +98,16 @@ class PPIDController extends Controller
         );
         $skor = 0;
         $temp;
-        $i = 1;
+        $i = 1;        
         foreach ($id_pertanyaan as $temp){
+            if($this->request->getPost('poin' . $i) == null){
+                $this->flashSession->error('Harap isi semua pertanyaan');
+                return $this->response->redirect('ppid/kuesioner');
+            }
             $skor = $skor + $this->request->getPost('poin' . $i);
             $i++;
         }
-        $kritik = $this->request->getPost('kritik');
+        $skor = ($skor/(count($id_pertanyaan)*4))*100;
 
         $id_responden = $this->session->get('responden')['id'];
         $date = date('Y-M-D', time());

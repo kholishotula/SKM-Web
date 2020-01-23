@@ -12,6 +12,7 @@
 
             <br><br>
             <div class="row">
+                <div class="col-12" style="font-size: 16px">{{ flashSession.output() }}</div>
                 <form action="{{url('persandian/kuesioner')}}" method="post">
                 <div class="col-md-10" style="font-size: larger">
                     {% set i = 1 %}
@@ -20,8 +21,11 @@
                         <div class="form-group">
                             <label>{{tanya.getKonten()}}</label><br>
                             <input type="radio" name="{{var}}" value=4>Sangat Setuju</input>
+                            <span style="padding-left: 20px"></span>
                             <input type="radio" name="{{var}}" value=3>Setuju</input>
+                            <span style="padding-left: 20px"></span>
                             <input type="radio" name="{{var}}" value=2>Kurang Setuju</input>
+                            <span style="padding-left: 20px"></span>
                             <input type="radio" name="{{var}}" value=1>Tidak Setuju</input>
                         </div>
                         {% set i = i + 1 %}

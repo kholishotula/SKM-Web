@@ -11,13 +11,34 @@
 
             <br><br>
             <div class="row">
-                <div class="col-10" style="font-size: larger">
+                <div class="col-12 text-center" style="font-size: 20px">
                     Silahkan pilih layanan yang Anda terima<br><br>
                 </div>
-                <div class="col-8">
-                    <a type="button" class="btn btn-lg btn-success btn-block text-black" href="{{url('lpse')}}">Layanan Pengadaan Secara Elektronik (LPSE)</a>
-                    <a type="button" class="btn btn-lg btn-success btn-block text-black" href="{{url('ppid')}}">Pengelola Informasi dan Dokumentasi (PPID)</a>
-                    <a type="button" class="btn btn-lg btn-success btn-block text-black" href="{{url('persandian')}}">Data Statistitik Sektoral dan Persandian</a>
+            </div>
+            <div class="row justify-content-md-center" style="font-size: larger">
+                <div class="thumbnail col-3 text-center">
+                    <a href="{{url('lpse')}}">
+                        <img src="{{url('assets/lpse.png')}}" alt="LPSE" class="img-responsive img-fluid">
+                        <div class="caption">
+                            <p>Layanan Pengadaan Secara Elektronik (LPSE)</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="thumbnail col-3 text-center">
+                    <a href="{{url('ppid')}}">
+                        <img src="{{url('assets/ppid.png')}}" alt="PPID" class="img-responsive img-fluid">
+                        <div class="caption">
+                            <p>Pengelola Informasi dan Dokumentasi (PPID)</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="thumbnail col-3 text-center">
+                    <a href="{{url('persandian')}}">
+                        <img src="{{url('assets/statistik.png')}}" alt="Persandian" class="img-responsive img-fluid">
+                        <div class="caption">
+                            <p>Data Statistik Sektoral dan Persandian</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>

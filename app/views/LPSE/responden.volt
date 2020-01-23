@@ -11,7 +11,8 @@
             <hr id="line">
 
             <br><br>
-            <div class="row">
+            <div class="row" style="font-size: larger">
+                <div class="col-12" style="font-size: 16px">{{ flashSession.output() }}</div>
                 <div class="col-md-6">
                     {{ form.startForm()}}
                         <div class="form-group">

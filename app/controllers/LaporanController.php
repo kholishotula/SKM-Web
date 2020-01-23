@@ -20,7 +20,15 @@ class LaporanController extends Controller
 
 	public function laporanAction()
 	{
-		
+		$tahun = date("Y", time()) - 4;
+		$id_laporan = LaporanRekapitulasi::find(
+			[
+				'conditions' => 'tahun_laporan > ' . $tahun,
+				'order' => 'tahun_laporan ASC',
+			]
+		);
+
+		$this->view->laporan = $id_laporan;
 	}
 
 	public function createAction()

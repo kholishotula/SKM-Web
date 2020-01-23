@@ -23,13 +23,13 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img class="img img-fluid" src="{{url('assets/bg1.jpg')}}" alt="Dinas Komunikasi, Informatika, dan Statistika Kota Blitar">
+                            <img class="img img-fluid img-responsive" src="{{url('assets/bg1.jpg')}}" alt="Dinas Komunikasi, Informatika, dan Statistika Kota Blitar">
                         </div>
                         <div class="carousel-item">
-                            <img class="img img-fluid" src="{{url('assets/bg2.jpg')}}" alt="LPSE">
+                            <img class="img img-fluid img-responsive" src="{{url('assets/bg2.jpg')}}" alt="LPSE">
                         </div>
                         <div class="carousel-item">
-                            <img class="img img-fluid" src="{{url('assets/bg3.jpg')}}" alt="PPID">
+                            <img class="img img-fluid img-responsive" src="{{url('assets/bg3.jpg')}}" alt="PPID">
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#demo" data-slide="prev">
@@ -49,7 +49,7 @@
                     <h4>Terima kasih telah menggunakan layanan Dinas Komunikasi, Informatika, dan Statistik Kota Blitar. Demi perbaikan kami ke depannya, silahkan isi survei kepuasan berikut.</h4>
                 </div>
                 <div class="col-4 text-center">
-                    <a type="button" class="btn btn-lg btn-outline-dark" href="{{url('panduan')}}">Panduan</a><br><br>
+                    <a type="button" class="btn btn-lg btn-outline-dark myButton" href="{{url('panduan')}}">Panduan</a><br><br>
                     <a type="button" class="btn btn-lg btn-outline-dark" href="{{url('survei')}}">Isi Survei</a>
                 </div>
             </div>

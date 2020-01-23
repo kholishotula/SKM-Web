@@ -6,33 +6,59 @@
 <link href="<?= $this->url->get('css/bootstrap.min.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/fontawesome.min.css') ?>" rel="stylesheet">
 <link id="css-main" href="<?= $this->url->get('css/codebase.min.css') ?>" rel="stylesheet">
-<link rel="shortcut icon" href="<?= $this->url->get('assets/favicon.ico') ?>" type="image/x-icon">
+<link href="<?= $this->url->get('css/tagmanager.min.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('assets/apple-touch-icon.png') ?>" rel="apple-touch-icon" sizes="180x180">
+<link href="<?= $this->url->get('assets/favicon-32x32.png') ?>" rel="icon" type="image/png" sizes="32x32">
+<link href="<?= $this->url->get('assets/favicon-16x16.png') ?>" rel="icon" type="image/png" sizes="16x16">
+<link href="<?= $this->url->get('assets/site.webmanifest') ?>" rel="manifest">
 <script type="text/javascript" src="<?= $this->url->get('js/jquery-3.3.1.min.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/bootstrap.bundle.min.js') ?>"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>  
 	<title>Survei Kepuasan Layanan Masyarakat - Dinas Komunikasi, Informatika, dan Statistik Kota Blitar</title>
 </head>
 <body>
 	<!-- Header Content -->
         <!-- Nav tabs -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-            <a class="nav-link" href="<?= $this->url->get() ?>">Home</a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" style="font-family: Courier New, Courier, monospace; font-size: 16px">
+            <a class="nav-link text-black" href="<?= $this->url->get() ?>">Home</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= $this->url->get('panduan') ?>">Panduan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= $this->url->get('survei') ?>">Survei Kuesioner</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= $this->url->get('laporan') ?>">Laporan Survei</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= $this->url->get('login') ?>">Login</a>
-                    </li>
+                    <?php if ($this->session->get('auth')) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link text-black" href="<?= $this->url->get('kuesioner') ?>">Kuesioner</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black" href="<?= $this->url->get('pertanyaan') ?>">Pertanyaan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black" href="<?= $this->url->get('tampil-rekap') ?>">Laporan Rekapitulasi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black" href="<?= $this->url->get('submission') ?>">Submission Survei</a>
+                        </li>
+                    <?php } else { ?> 
+                        <li class="nav-item">
+                            <a class="nav-link text-black" href="<?= $this->url->get('panduan') ?>">Panduan</a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link text-black" href="<?= $this->url->get('survei') ?>">Survei Kuesioner</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black" href="<?= $this->url->get('laporan') ?>">Laporan Survei</a>
+                        </li>
+                    <?php } ?>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <?php if ($this->session->get('auth')) { ?>
+                        <a class="nav-link text-black" href="<?= $this->url->get('profile') ?>">Selamat Datang, <span class="text-info"><?= $this->session->get('auth')['username'] ?></span></a>
+                        <a class="nav-link btn btn-danger" href="<?= $this->url->get('logout') ?>">Log Out</a>
+                    <?php } else { ?>
+                        <a class="nav-link text-black" href="<?= $this->url->get('login') ?>">Log In</a>
+                    <?php } ?>
                 </ul>
             </div>
         </nav>
@@ -49,13 +75,34 @@
 
             <br><br>
             <div class="row">
-                <div class="col-10" style="font-size: larger">
+                <div class="col-12 text-center" style="font-size: 20px">
                     Silahkan pilih layanan yang Anda terima<br><br>
                 </div>
-                <div class="col-8">
-                    <a type="button" class="btn btn-lg btn-success btn-block text-black" href="<?= $this->url->get('lpse') ?>">Layanan Pengadaan Secara Elektronik (LPSE)</a>
-                    <a type="button" class="btn btn-lg btn-success btn-block text-black" href="<?= $this->url->get('ppid') ?>">Pengelola Informasi dan Dokumentasi (PPID)</a>
-                    <a type="button" class="btn btn-lg btn-success btn-block text-black" href="<?= $this->url->get('persandian') ?>">Data Statistitik Sektoral dan Persandian</a>
+            </div>
+            <div class="row justify-content-md-center" style="font-size: larger">
+                <div class="thumbnail col-3 text-center">
+                    <a href="<?= $this->url->get('lpse') ?>">
+                        <img src="<?= $this->url->get('assets/lpse.png') ?>" alt="LPSE" class="img-responsive img-fluid">
+                        <div class="caption">
+                            <p>Layanan Pengadaan Secara Elektronik (LPSE)</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="thumbnail col-3 text-center">
+                    <a href="<?= $this->url->get('ppid') ?>">
+                        <img src="<?= $this->url->get('assets/ppid.png') ?>" alt="PPID" class="img-responsive img-fluid">
+                        <div class="caption">
+                            <p>Pengelola Informasi dan Dokumentasi (PPID)</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="thumbnail col-3 text-center">
+                    <a href="<?= $this->url->get('persandian') ?>">
+                        <img src="<?= $this->url->get('assets/statistik.png') ?>" alt="Persandian" class="img-responsive img-fluid">
+                        <div class="caption">
+                            <p>Data Statistik Sektoral dan Persandian</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
