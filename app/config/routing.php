@@ -35,7 +35,23 @@ $di->set(
                 'controller' => 'laporan',
                 'action' => 'laporan',
             ]
-        );
+		);
+
+		$router->addGet(
+			'/tambah/operator',
+			[
+				'controller' => 'index',
+				'action' => 'create',
+			]
+		);
+		
+		$router->addPost(
+			'/tambah/operator',
+			[
+				'controller' => 'index',
+				'action' => 'store',
+			]
+		);
 
 		$router->mount(
 			new LPSERoutes()

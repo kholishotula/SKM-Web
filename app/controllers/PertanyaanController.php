@@ -2,6 +2,7 @@
 
 use Phalcon\Mvc\Controller;
 use Phalcon\Http\Response;
+use Phalcon\Paginator\Adapter\Model as PaginatorModel;
 
 use App\Forms\PertanyaanForm;
 
@@ -43,7 +44,7 @@ class PertanyaanController extends Controller
             $tgl_submit = date('Y-m-d');
 
             $tanya = new Pertanyaan();
-            $tanya->construct($konten_pertanyaan,$tgl_submit);
+            $tanya->construct($konten_pertanyaan);
 
             if($tanya->save()){
                 $this->notif = 'Pertanyaan berhasil ditambahkan';
@@ -52,26 +53,26 @@ class PertanyaanController extends Controller
                 $this->error = 'Terjadi error saat menambahkan. Coba ulangi kembali';
             }
         }
-
-        $this->dispatcher->forward(['action' => 'create']);
+        $this->response->redirect('pertanyaan');
     }
 
     public function editAction()
 	{
         if(!$this->request->hasQuery('id_pertanyaan') && !$this->dispatcher ){
-            return $this->response->redirect('ubah-pertanyaan');
+            return $this->response->redirect('pertanyaan');
         }
 
         $this->view->notif = $this->notif;
         $this->view->error = $this->error;
         $this->view->messages = $this->messages;
         if($this->request->hasQuery('id_pertanyaan'))
-            $id_resto = $this->request->getQuery('id_pertanyaan');
+            $id_pertanyaan = $this->request->getQuery('id_pertanyaan');
        
         else if($this->dispatcher)
             $id_pertanyaan = $this->dispatcher->getParams()['id_pertanyaan'];
         
         $pertanyaan = Pertanyaan::findFirst([
+            'columns' => "id_pertanyaan",
             'conditions' => "id_pertanyaan= '$id_pertanyaan'"
         ]);
 
@@ -83,14 +84,15 @@ class PertanyaanController extends Controller
     public function updateAction(){
         if(!$this->session->has('auth'))
             $this->error = 'Anda harus log in terlebih dahulu untuk memperbarui data';
-        
-        else if(!$form->isValid($this->request->getPost())){
+
+        $form = new PertanyaanForm();
+
+        if(!$form->isValid($this->request->getPost())){
             foreach($form->getMessages() as $msg){
                 $this->messages[$msg->getField()] = $msg;
             }
             $this->error = 'Tidak dapat memperbarui data'; 
         }
-        
         else{
             $id_pertanyaan = $this->request->getPost('id_pertanyaan');
             $pertanyaan = Pertanyaan::findFirst([
@@ -101,8 +103,8 @@ class PertanyaanController extends Controller
                 $this->error = 'Terjadi error saat mencari data';
             }
             else{
-                $pertanyaan->konten_pertanyaan = $this->request->getPost()['konten_pertanyaan'];
-                $pertanyaan->tgl_submit = date('Y-m-d');
+                $konten_pertanyaan = $this->request->getPost()['konten_pertanyaan'];
+                $pertanyaan->construct($konten_pertanyaan);
 
                 if($pertanyaan->update()){
                     $this->notif = 'Data berhasil diperbarui';
@@ -112,7 +114,7 @@ class PertanyaanController extends Controller
                 }
             }
         }
-        $this->dispatcher->forward(['action'=>'edit', 'params'=>['id_pertanyaan'=> $id_pertanyaan]]);
+        $this->response->redirect('pertanyaan');
     }
     
     public function deleteAction()
@@ -144,18 +146,57 @@ class PertanyaanController extends Controller
     
     public function showAction()
     {
-        $pertanyaan;
-        $i=0;
         $temp = Pertanyaan::find();
-        foreach($temp as $t){
-            $pertanyaan[$i++] = $t;
-        }
 
-        $this->view->temp = $pertanyaan;
-        $this->view->count = $i;
+        $currentPage = (int) $_GET['page'];
+        $paginator = new PaginatorModel(
+            [
+                'data'  => $temp,
+                'limit' => 10,
+                'page'  => $currentPage,
+            ]
+        );
+        $page = $paginator->getPaginate();
+
+        $this->view->temp = $temp;
+        $this->view->page = $page;
+        $this->view->notif = $this->notif;
         $this->view->error = $this->error;
         $this->view->success = $this->succes;
         $this->view->form = new PertanyaanForm();
+    }
+
+    public function searchAction(){
+        $cari = $_GET['search'];
+
+        if($cari == null){
+            $this->response->redirect('pertanyaan');
+        }
+        else{
+            $query1 = $this->modelsManager->createQuery('SELECT * FROM Pertanyaan WHERE CONCAT(id_pertanyaan,konten_pertanyaan) LIKE "%'.$cari.'%"');
+            $temp = $query1->execute();
+
+            if($temp->count() <= 0){
+                $this->response->redirect('pertanyaan');
+            }
+
+            $currentPage = (int) $_GET['page'];
+            $paginator = new PaginatorModel(
+                [
+                    'data'  => $temp,
+                    'limit' => 10,
+                    'page'  => $currentPage,
+                ]
+            );
+            $page = $paginator->getPaginate();
+
+            $this->view->temp = $temp;
+            $this->view->page = $page;
+            $this->view->notif = $this->notif;
+            $this->view->error = $this->error;
+            $this->view->success = $this->succes;
+            $this->view->form = new PertanyaanForm();
+        }
     }
 };
 

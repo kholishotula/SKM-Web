@@ -10,14 +10,10 @@ use Phalcon\Forms\Element\TextArea;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Submit;
 
-use Phalcon\Models\Pertanyaan;
-use Phalcon\Models\Layanan;
-
 use Phalcon\Tag;
 
 class KuesionerForm extends BaseForm {
     public function initialize(){
-
         $kode_verifikasi = new Text ('kode_verifikasi',
         [
             "placeholder" => "Masukkan Kode Verifikasi",
@@ -25,24 +21,26 @@ class KuesionerForm extends BaseForm {
         ]);
         $kode_verifikasi->setLabel('Kode Verifikasi');
 
-        $keterangan_kuesioner = new TextArea ('keterangan_kuesioner',
+        $kritik_saran = new TextArea ('kritik_saran',
         [
             "placeholder" => "Masukkan Keterangan",
             "class" => "form-control"
         ]);
-        $keterangan_kuesioner->setLabel('Keterangan Kuesioner');
+        $kritik_saran->setLabel('Keterangan Kuesioner');
 
-        $konten_pertanyaan = new Text ('fk_pertanyaan',
+        $konten_layanan = new Text ('kategori_layanan',
         [
-            "class" => "typeahead tm-input form-control tm-input-info"
+            "placeholder" => "Masukkan Kategori Layanan",
+            "class" => "form-control"
+        ]);
+        $konten_layanan->setLabel('Tambah Kategori Layanan');
+
+        $konten_pertanyaan = new Text ('pilihan_pertanyaan',
+        [
+            "class" => "typeahead tm-input form-control tm-input-info",
+            "data-role" => "tagsinput"
         ]);
         $konten_pertanyaan->setLabel('Tambahkan Pertanyaan');
-
-        $konten_layanan = new Text ('fk_layanan',
-        [
-            "class" => "typeahead tm-input form-control tm-input-info"
-        ]);
-        $konten_layanan->setLabel('Tambahkan Kategori Layanan');
 
         $submit = new Submit ('Simpan',[
             'name' => 'Simpan',
@@ -55,7 +53,7 @@ class KuesionerForm extends BaseForm {
         ]);
 
         $this->add($kode_verifikasi);
-        $this->add($keterangan_kuesioner);
+        $this->add($kritik_saran);
         $this->add($konten_layanan);
         $this->add($konten_pertanyaan);
         $this->add($submit);

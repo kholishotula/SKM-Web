@@ -14,6 +14,14 @@ $di->set(
 			"compiledExtension" => ".compiled",
 			"compileAlways" => true,
 		]);
+
+		$volt->getCompiler()->addFunction('sortLink', function ($resolvedArgs, $expArgs){
+			return 'TableSort\Sort::sortLink('. $resolvedArgs.')';
+		});
+
+		$volt->getCompiler()->addFunction('sortIcon', function ($resolvedArgs, $expArgs){
+			return 'TableSort\Sort::sortIcon('. $resolvedArgs.')';
+		});
 		
 		return $volt;
 	}

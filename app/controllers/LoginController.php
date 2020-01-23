@@ -5,6 +5,7 @@ use Phalcon\Http\Response;
 use Phalcon\Mvc\Dispatcher;
 
 use App\Forms\LoginForm;
+use App\Forms\ProfilForm;
 
 
 class LoginController extends Controller
@@ -96,7 +97,14 @@ class LoginController extends Controller
 
     public function destroyAction()
     {
-        $this->session->destroy();
+        unset($this->session->auth);
      	$this->response->redirect();   
+    }
+
+    public function showAccountAction(){
+        $username = $this->session->get('auth')['username'];
+        $data = Admin::findFirst("username='$username'");
+
+        $this->view->data = $data;
     }
 }

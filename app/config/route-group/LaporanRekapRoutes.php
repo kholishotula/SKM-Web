@@ -10,30 +10,58 @@ class LaporanRekapRoutes extends RouterGroup{
         ]);
 
         $this->addGet(
-            '/unggah-laporan',
+            '/submission',
+            [
+                'action' => 'listSubmit',
+            ]
+        );
+
+        $this->addGet(
+            '/tampil-rekap',
+            [
+                'action' => 'listRekap',
+            ]
+        );
+
+        $this->addPost(
+            '/tampil-rekap',
+            [
+                'action' => 'delete',
+            ]
+        );
+
+        $this->addGet(
+            '/laporanrekap/tambah',
             [
                 'action' => 'create',
             ]
         );
     
         $this->addPost(
-            '/unggah-laporan',
+            '/laporanrekap/tambah',
             [
                 'action' => 'store',
             ]
         );
 
         $this->addPost(
-            '/hapus-laporan',
+            '/laporanrekap/ubah',
             [
-                'action' => 'delete',
+                'action' => 'update',
             ]
         );
 
-        $this->addPost(
-            '/tampil-laporan',
+        $this->addGet(
+            '/carilaporan',
             [
-                'action' => 'show',
+                'action' => 'searchRekap',
+            ]
+        );
+
+        $this->addGet(
+            '/carisubmission',
+            [
+                'action' => 'searchSubmit',
             ]
         );
     }

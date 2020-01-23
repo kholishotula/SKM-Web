@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<link href="<?= $this->url->get('css/styles.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/bootstrap.min.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/codebase.min.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/tagmanager.min.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/fontawesome.min.css') ?>" rel="stylesheet">
+<link rel="shortcut icon" href="<?= $this->url->get('assets/favicon.ico') ?>" type="image/x-icon">
+
+<script type="text/javascript" src="<?= $this->url->get('js/jquery-3.3.1.min.js') ?>"></script>
+<script type="text/javascript" src="<?= $this->url->get('js/bootstrap.bundle.min.js') ?>"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>  
+	<title>Admin - Daftar LaporanRekap</title>
+</head>
+<body>
+	<!-- Header Content -->
+        <!-- Nav tabs -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <a class="nav-link" href="<?= $this->url->get() ?>">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <?php if ($this->session->get('auth')) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('kuesioner') ?>">Kuesioner</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('pertanyaan') ?>">Pertanyaan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('tampil-rekap') ?>">Laporan Rekapitulasi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('submission') ?>">Submission Survei</a>
+                        </li>
+                    <?php } else { ?> 
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('panduan') ?>">Panduan</a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('survei') ?>">Survei Kuesioner</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('laporan') ?>">Laporan Survei</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('laporan-rekap') ?>">Laporan Rekapitulasi</a>
+                        </li>
+                    <?php } ?>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <?php if ($this->session->get('auth')) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('profile') ?>">Selamat Datang, <span class="text-info"><?= $this->session->get('auth')['username'] ?></span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-danger" href="<?= $this->url->get('logout') ?>">Log Out</a>
+                        </li> 
+                    <?php } else { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url->get('login') ?>">Log In</a>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </div>
+        </nav>
+    <div class="intro">
+    </div>
+<!-- END Header Content -->
+
+	
+
+<?php if ($this->cookies->has('username')) { ?>
+	
+<?php } ?>
+
+<div class='edit-box' style="width:50vw;height:50vw;">
+
+<?= $form->startForm() ?>
+    <label  for='judul_laporan'><?= $form->getLabel('judul_laporan') ?> </label>
+    <?= $form->render('judul_laporan') ?>
+<?= $form->endForm() ?>
+</div>
+
+
+	<div class="clearfix bottom-content">
+		<div class="row" style="position: absolute; bottom: 8px; width: 100%; color: white"> 
+			<div class="col-8">
+				<p style="padding-left: 2vw;">© Dinas Komunikasi, Informatika, dan Statistik Kota Blitar</p>
+			</div>
+			<div class="col-4">
+                <a type="button" class="text-white" href="http://diskominfotik.blitarkota.go.id/"><i class="fa fa-globe" style="font-size:24px"></i> http://diskominfotik.blitarkota.go.id</a><br>
+                <a type="button" class="text-white" href="https://www.facebook.com/diskominfotikkotablitar/"><i class="fa fa-facebook-square" style="font-size:24px"></i> Diskominfotik Kota Blitar</a><br>
+			</div>
+		</div> 
+	</div>
+</body>
+</html>

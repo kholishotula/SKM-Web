@@ -15,8 +15,9 @@ class PertanyaanForm extends BaseForm {
         $konten_pertanyaan = new TextArea ('konten_pertanyaan',
         [
             "placeholder" => "Masukkan Pertanyaan",
-            "class" => "form-control required"
+            "class" => "form-control"
         ]);
+        $konten_pertanyaan->setLabel("Pertanyaan");
 
         $submit = new Submit ('Simpan',[
             'name' => 'Simpan',

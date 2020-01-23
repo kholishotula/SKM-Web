@@ -25,31 +25,38 @@
 			);
 
 			$this->addGet(
-				'/tambah-kuesioner',
+				'/kuesioner/tambah',
 				[
 					'action' => 'create',
 				]
 			);
 
 			$this->addPost(
-				'/tambah-kuesioner',
+				'/kuesioner/tambah',
 				[
 					'action' => 'store',
 				]
 			);
 
-			$this->addPost(
-				'/edit-kuesioner',
+			$this->addGet(
+				'/kuesioner/ubah',
 				[
 					'action' => 'edit',
 				]
-            );
-            
-            // $this->addPost(
-			// 	'/delete-kuesioner',
-			// 	[
-			// 		'action' => 'delete',
-			// 	]
-			// );
+			);
+			
+			$this->addPost(
+				'/kuesioner/ubah',
+				[
+					'action' => 'update',
+				]
+			);
+			
+			$this->addGet(
+				'/carikuesioner',
+				[
+					'action' => 'search',
+				]
+			);
 		}
 	}

@@ -25,24 +25,38 @@
 			);
 
 			$this->addGet(
-				'/tambah-pertanyaan',
+				'/pertanyaan/tambah',
 				[
 					'action' => 'create',
 				]
 			);
 
 			$this->addPost(
-				'/tambah-pertanyaan',
+				'/pertanyaan/tambah',
 				[
 					'action' => 'store',
 				]
 			);
 
-			$this->addPost(
-				'/edit-pertanyaan',
+			$this->addGet(
+				'/pertanyaan/ubah',
 				[
 					'action' => 'edit',
 				]
-            );
+			);
+			
+			$this->addPost(
+				'/pertanyaan/ubah',
+				[
+					'action' => 'update',
+				]
+			);
+			
+			$this->addGet(
+				'/caripertanyaan',
+				[
+					'action' => 'search',
+				]
+			);
 		}
 	}

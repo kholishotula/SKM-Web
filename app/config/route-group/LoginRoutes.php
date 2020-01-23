@@ -30,5 +30,19 @@
 					'action' => 'destroy',
 				]
 			);
+
+			$this->addGet(
+				'/profile',
+				[
+					'action' => 'showAccount',
+				]
+			);
+
+			$this->addPost(
+				'/profile',
+				[
+					'action' => 'showAccount',
+				]
+			);
 		}
 	}
