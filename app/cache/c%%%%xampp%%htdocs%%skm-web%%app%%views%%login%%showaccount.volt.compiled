@@ -16,8 +16,9 @@
 
 <script type="text/javascript" src="<?= $this->url->get('js/jquery-3.3.1.min.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/bootstrap.bundle.min.js') ?>"></script>
-<script type="text/javascript" src="<?= $this->url->get('js/Chart.js') ?>"></script>
+<script type="text/javascript" src="<?= $this->url->get('js/popper.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/tagsinput.js') ?>"></script>
+<script type="text/javascript" src="<?= $this->url->get('js/Chart.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/javascript.js') ?>"></script>
 	<title>Profil Operator</title>
 </head>

@@ -16,8 +16,9 @@
 
 <script type="text/javascript" src="<?= $this->url->get('js/jquery-3.3.1.min.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/bootstrap.bundle.min.js') ?>"></script>
-<script type="text/javascript" src="<?= $this->url->get('js/Chart.js') ?>"></script>
+<script type="text/javascript" src="<?= $this->url->get('js/popper.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/tagsinput.js') ?>"></script>
+<script type="text/javascript" src="<?= $this->url->get('js/Chart.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/javascript.js') ?>"></script>
 	<title>Survei Kepuasan Layanan Masyarakat - Dinas Komunikasi, Informatika, dan Statistik Kota Blitar</title>
 </head>
@@ -137,7 +138,7 @@
                     <h4 class="modal-title">Tambah Operator</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
-                <div class="modal-body" style="height:30vw; overflow-y:auto;">					
+                <div class="modal-body" style="height:50vh; overflow-y:auto;">					
                     <div class="form-group">
                         <label><b><?= $form->getLabel('nama_admin') ?></b></label>
                         <?= $form->render('nama_admin') ?>

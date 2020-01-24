@@ -63,6 +63,26 @@ h1.text-center.text-secondary.profil{
     font-size: 2vw;
 }
 
+.bootstrap-tagsinput {
+    width: 100% !important;
+  }
+
+span.tag.badge.badge-info{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    display: inline-block;
+}
+
+span.tag.badge.badge-info:hover{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    display: inline-block;
+}
+
 /* .form-group {
     font-size: 1vw;
 }

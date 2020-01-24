@@ -88,14 +88,14 @@
 
 {% for t in temp %}
 <div id="editKuesionerModal{{t.getId()}}" class="modal fade">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="width:50vw;">
         <div class="modal-content">
             <form id='form-kuesioner' action='kuesioner/ubah' method='POST'>
                 <div class="modal-header">						
                     <h4 class="modal-title">Ubah Kuesioner</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="height:50vh; overflow-y:auto;">
                     <input type='hidden' value='{{t.getId()}}' name='id_kuesioner' id='id_kuesioner'>										
                     <div class="form-group">
                         <label><b>{{form.getLabel('kode_verifikasi')}}</b></label>
@@ -111,7 +111,7 @@
                     </div>
                     <div class="form-group">
                         <label><b>Tambah Pertanyaan</b></label>
-                        <input type="text" data-role="tagsinput" name="pilihan" id="pilihan" value="{% for p in pertanyaan %}{{p.getId()~"-"~ p.getKonten() ~","}}{% endfor %}">
+                        <input type="text" value="{% for p in pertanyaan %}{{p.getId()~"-"~ p.getKonten() ~","}}{% endfor %}" data-role="tagsinput" name="pilihan" id="pilihan">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -125,14 +125,14 @@
 {% endfor %}
 
 <div id="tambahKuesionerModal" class="modal fade">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="width:50vw;">
         <div class="modal-content">
              <form id="form-kuesioner" action="kuesioner/tambah" method="POST">
                 <div class="modal-header">						
                     <h4 class="modal-title">Tambah Kuesioner</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
-                <div class="modal-body">					
+                <div class="modal-body" style="height:50vh; overflow-y:auto;">					
                     <div class="form-group">
                         <label><b>{{form.getLabel('kode_verifikasi')}}</b></label>
                         {{form.render('kode_verifikasi')}}

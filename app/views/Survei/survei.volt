@@ -15,7 +15,7 @@
                     Silahkan pilih layanan yang Anda terima<br><br>
                 </div>
             </div>
-            <div class="row justify-content-md-center" style="font-size: larger">
+            <div class="row justify-content-md-center scroll-animate" style="font-size: larger">
                 <div class="thumbnail col-3 text-center">
                     <a href="{{url('lpse')}}">
                         <img src="{{url('assets/lpse.png')}}" alt="LPSE" class="img-responsive img-fluid">
@@ -24,7 +24,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="thumbnail col-3 text-center">
+                <div class="thumbnail col-3 text-center scroll-animate">
                     <a href="{{url('ppid')}}">
                         <img src="{{url('assets/ppid.png')}}" alt="PPID" class="img-responsive img-fluid">
                         <div class="caption">
@@ -32,7 +32,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="thumbnail col-3 text-center">
+                <div class="thumbnail col-3 text-center scroll-animate">
                     <a href="{{url('persandian')}}">
                         <img src="{{url('assets/statistik.png')}}" alt="Persandian" class="img-responsive img-fluid">
                         <div class="caption">

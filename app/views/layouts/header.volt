@@ -13,6 +13,7 @@
 
 <script type="text/javascript" src="{{ url("js/jquery-3.3.1.min.js") }}"></script>
 <script type="text/javascript" src="{{ url("js/bootstrap.bundle.min.js") }}"></script>
-<script type="text/javascript" src="{{ url("js/Chart.js") }}"></script>
+<script type="text/javascript" src="{{ url("js/popper.js") }}"></script>
 <script type="text/javascript" src="{{ url("js/tagsinput.js") }}"></script>
+<script type="text/javascript" src="{{ url("js/Chart.js") }}"></script>
 <script type="text/javascript" src="{{ url("js/javascript.js") }}"></script>

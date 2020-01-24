@@ -16,8 +16,9 @@
 
 <script type="text/javascript" src="<?= $this->url->get('js/jquery-3.3.1.min.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/bootstrap.bundle.min.js') ?>"></script>
-<script type="text/javascript" src="<?= $this->url->get('js/Chart.js') ?>"></script>
+<script type="text/javascript" src="<?= $this->url->get('js/popper.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/tagsinput.js') ?>"></script>
+<script type="text/javascript" src="<?= $this->url->get('js/Chart.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/javascript.js') ?>"></script>
 	<title>Survei Kepuasan Layanan Masyarakat - Dinas Komunikasi, Informatika, dan Statistik Kota Blitar</title>
 </head>
@@ -83,7 +84,7 @@
                     Silahkan pilih layanan yang Anda terima<br><br>
                 </div>
             </div>
-            <div class="row justify-content-md-center" style="font-size: larger">
+            <div class="row justify-content-md-center scroll-animate" style="font-size: larger">
                 <div class="thumbnail col-3 text-center">
                     <a href="<?= $this->url->get('lpse') ?>">
                         <img src="<?= $this->url->get('assets/lpse.png') ?>" alt="LPSE" class="img-responsive img-fluid">
@@ -92,7 +93,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="thumbnail col-3 text-center">
+                <div class="thumbnail col-3 text-center scroll-animate">
                     <a href="<?= $this->url->get('ppid') ?>">
                         <img src="<?= $this->url->get('assets/ppid.png') ?>" alt="PPID" class="img-responsive img-fluid">
                         <div class="caption">
@@ -100,7 +101,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="thumbnail col-3 text-center">
+                <div class="thumbnail col-3 text-center scroll-animate">
                     <a href="<?= $this->url->get('persandian') ?>">
                         <img src="<?= $this->url->get('assets/statistik.png') ?>" alt="Persandian" class="img-responsive img-fluid">
                         <div class="caption">

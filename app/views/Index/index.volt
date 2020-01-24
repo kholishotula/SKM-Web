@@ -69,7 +69,7 @@
                     <h4 class="modal-title">Tambah Operator</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
-                <div class="modal-body" style="height:30vw; overflow-y:auto;">					
+                <div class="modal-body" style="height:50vh; overflow-y:auto;">					
                     <div class="form-group">
                         <label><b>{{form.getLabel('nama_admin')}}</b></label>
                         {{form.render('nama_admin')}}

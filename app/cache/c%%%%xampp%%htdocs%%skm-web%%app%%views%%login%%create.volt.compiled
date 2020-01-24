@@ -16,8 +16,9 @@
 
 <script type="text/javascript" src="<?= $this->url->get('js/jquery-3.3.1.min.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/bootstrap.bundle.min.js') ?>"></script>
-<script type="text/javascript" src="<?= $this->url->get('js/Chart.js') ?>"></script>
+<script type="text/javascript" src="<?= $this->url->get('js/popper.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/tagsinput.js') ?>"></script>
+<script type="text/javascript" src="<?= $this->url->get('js/Chart.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/javascript.js') ?>"></script>
 	<title>Login Operator</title>
 </head>
@@ -78,13 +79,14 @@
 
 <div class="row-centered">
 	<div class="card login-card">
+		<img class="avatar" src="<?= $this->url->get('assets/logo1.png') ?>">
 		<h1 class="text-center text-secondary">Log In <span class="text-danger">Operator</span></h1>
 		<div class="notif-block">
 			<?php if ($message != '') { ?>
-				<?= $this->flash->error($message) ?>
+				<div class="alert alert-danger text-center"><?= $this->flash->error($message) ?></div>
 			<?php } ?>
 		</div>
-		<div class="col-md-6 login-padding">
+		<div class="col-md-6" style="margin-left:12vw;">
 			<?= $form->startForm() ?>
 				<div class="form-group">
 					<?= $form->render('username') ?>

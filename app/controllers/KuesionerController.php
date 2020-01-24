@@ -12,7 +12,7 @@ class KuesionerController extends AdminKuesionerSecureController
 	public function initialize(){
         $this->messages = [
 			'kode_verifikasi' => '',
-			'keterangan' => ''
+			'kritik_saran' => ''
 		];
         $this->notif = "";
         $this->error = "";
@@ -39,9 +39,9 @@ class KuesionerController extends AdminKuesionerSecureController
             }
         }
 
-        if($this->messages['kode_verifikasi']==null && $this->messages['keterangan']==null){
+        if($this->messages['kode_verifikasi']==null && $this->messages['kritik_saran']==null){
             $id_admin = $this->session->get('auth')['id'];
-            $keterangan = $this->request->getPost('keterangan');
+            $keterangan = $this->request->getPost('kritik_saran');
             $kode_verifikasi = $this->request->getPost('kode_verifikasi');
             $nama_layanan = $this->request->getPost('kategori_layanan');
             $hasil_tags = $this->request->getPost('pilihan');
@@ -148,14 +148,14 @@ class KuesionerController extends AdminKuesionerSecureController
                 $id_admin = $this->session->get('auth')['id'];
                 $model_kuesioner = 'Online'; 
                 $kode_verifikasi = $this->request->getPost('kode_verifikasi');
-                $keterangan_kuesioner = $this->request->getPost('keterangan');
+                $keterangan_kuesioner = $this->request->getPost('kritik_saran');
                 $nama_layanan = $this->request->getPost('kategori_layanan');
                 $pertanyaan =$this->request->getPost('pilihan');
 
                 $stringArray = preg_replace("/[^0-9\,]/", "", $pertanyaan);
                 $intArray = array_map('intval',explode(",",$stringArray));
 
-                $kuesioner->construct($id_admin,$model_kuesioner,$keterangan_kuesioner,$kode_verifikasi,$nama_layanan);
+                $kuesioner->construct($id_admin,$nama_layanan,$keterangan_kuesioner,$kode_verifikasi);
 
                 if($kuesioner->update()){
                     $this->notif = 'Informasi data kuesioner berhasil di perbarui';
