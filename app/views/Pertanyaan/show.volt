@@ -29,6 +29,7 @@
                 </div>
             </div>
         </div>
+        {% if page.items > 0 %}
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -56,13 +57,16 @@
                     <td>{{t.getKonten()}}</td>
                     <td>
                         <a href="#editPertanyaanModal{{t.getId()}}" class="edit" data-toggle="modal"><i class="fa fa-pencil" data-toggle="tooltip" title="Ubah" value='{{t.getId()}}'></i></a>
-                        <a href="#deletePertanyaanModal" class="delete" data-toggle="modal"><i class="fa fa-trash-o" data-toggle="tooltip" title="Delete" value='{{t.getId()}}'></i></a>
+                        <a href="#deletePertanyaanModal{{t.getId()}}" class="delete" data-toggle="modal"><i class="fa fa-trash-o" data-toggle="tooltip" title="Delete" value='{{t.getId()}}'></i></a>
                     </td>
                 </tr>
             {% set i = i + 1 %}
             {% endfor %}
             </tbody>
         </table>
+        {% else %}
+            <h2>Tidak ada data yang dapat ditampilkan</h2>
+        {% endif %}
         <div class="text-center text-lg">
             <a href='/SKM-Web/pertanyaan'>First</a>
             <a href='/SKM-Web/pertanyaan?page={{page.before}}'>Previous</a>
@@ -96,6 +100,7 @@
     </div>
 </div>
 
+{% if temp.count() > 0 %}
 {% for t in temp %}
 <div id="editPertanyaanModal{{t.getId()}}" class="modal fade">
     <div class="modal-dialog">
@@ -120,9 +125,8 @@
         </div>
     </div>
 </div>
-{% endfor %}
 
-<div id="deletePertanyaanModal" class="modal fade">
+<div id="deletePertanyaanModal{{t.getId()}}" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <form id='form-pertanyaan' action='pertanyaan' method='POST'>
@@ -142,5 +146,7 @@
         </div>
     </div>
 </div>
+{% endfor %}
+{% endif %}
 
 {% endblock %}

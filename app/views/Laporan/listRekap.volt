@@ -40,6 +40,7 @@
                 </div>
             </div>
         </div>
+        {% if page.items != null %}
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -58,28 +59,31 @@
             </thead>
             <tbody>
             {% set i = 1, skipped = (page.current-1) * page.limit %}
-            {% for t in page.items %}
-                <tr>
-					<td>
-						<span class="custom-checkbox">
-							<input type="checkbox" id="checkbox1" name="options[]" value="1">
-							<label for="checkbox1"></label>
-						</span>
-					</td>
-                    <td>{{skipped + i}}</td>
-                    <td>{{t.getJudulLapor()}}</td>
-                    <td>{{t.getTahunLapor()}}</td>
-                    <td>{{t.getTglUpload()}}</td>
-                    <td>
-                        <a href="#lihatLaporanRekapModal{{t.getId()}}" class="view" data-toggle="modal"><i class="fa fa-eye" data-toggle="tooltip" title="Lihat" value="{{t.getFile()}}"></i></a>
-                        <a href="#editLaporanRekapModal{{t.getId()}}" class="edit" data-toggle="modal" data-remote="{{url('laporanrekap/ubah?')}}"><i class="fa fa-pencil" data-toggle="tooltip" title="Ubah" value="{{t.getId()}}"></i></a>
-                        <a href="#deleteLaporanRekapModal" class="delete" data-toggle="modal"><i class="fa fa-trash-o" data-toggle="tooltip"  title="Hapus" value="{{t.getId()}}"></i></a>
-                    </td>
-                </tr>
-            {% set i = i + 1 %}
-            {% endfor %}
+                {% for t in page.items %}
+                    <tr>
+                        <td>
+                            <span class="custom-checkbox">
+                                <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                                <label for="checkbox1"></label>
+                            </span>
+                        </td>
+                        <td>{{skipped + i}}</td>
+                        <td>{{t.getJudulLapor()}}</td>
+                        <td>{{t.getTahunLapor()}}</td>
+                        <td>{{t.getTglUpload()}}</td>
+                        <td>
+                            <a href="#lihatLaporanRekapModal{{t.getId()}}" class="view" data-toggle="modal"><i class="fa fa-eye" data-toggle="tooltip" title="Lihat" value="{{t.getFile()}}"></i></a>
+                            <a href="#editLaporanRekapModal{{t.getId()}}" class="edit" data-toggle="modal" data-remote="{{url('laporanrekap/ubah?')}}"><i class="fa fa-pencil" data-toggle="tooltip" title="Ubah" value="{{t.getId()}}"></i></a>
+                            <a href="#deleteLaporanRekapModal{{t.getId()}}" class="delete" data-toggle="modal"><i class="fa fa-trash-o" data-toggle="tooltip"  title="Hapus" value='{{t.getId()}}'></i></a>
+                        </td>
+                    </tr>
+                {% set i = i + 1 %}
+                {% endfor %}
             </tbody>
         </table>
+        {% else %}
+            <h2 class="text-danger text-center">Tidak ada data yang dapat ditampilkan</h2>
+        {% endif %}
         <div class="text-center text-lg">
             <a href='/SKM-Web/tempil-rekap'>First</a>
             <a href='/SKM-Web/tampil-rekap?page={{page.before}}'>Previous</a>
@@ -90,6 +94,7 @@
     </div>
 </div>
 
+{% if temp.count() > 0 %}
 {% for t in temp %}
 <div id="lihatLaporanRekapModal{{t.getId()}}" class="modal fade">
     <div class="modal-dialog">
@@ -103,7 +108,7 @@
                     <embed src="{{t.getFile()}}"  width="350px" height="500px">						
                 </div>
                 <div class="modal-footer">
-                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Keluar">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Keluar">
                 </div>
             </form>
         </div>
@@ -143,7 +148,29 @@
         </div>
     </div>
 </div>
+
+<div id="deleteLaporanRekapModal{{t.getId()}}" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id='form-laporanrekap' action='tampil-rekap' method='POST'>
+                <div class="modal-header">						
+                    <h4 class="modal-title">Hapus Laporan Rekapitulasi</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">				
+                    <input type='hidden' value='{{t.getId()}}' name='id_laporan' id='id_laporan'>
+                    <p>Apakah Anda yakin untuk menghapus data yang telah dipilih ?</p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
+                    <input type="submit" class="btn btn-danger" value="Hapus">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endfor %}
+{% endif %}
 
 <div id="tambahLaporanRekapModal" class="modal fade">
     <div class="modal-dialog">
@@ -175,27 +202,5 @@
         </div>
     </div>
 </div>
-
-<div id="deleteLaporanRekapModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form id='form-laporanrekap' action='tampil-rekap' method='POST'>
-                <div class="modal-header">						
-                    <h4 class="modal-title">Hapus Laporan Rekapitulasi</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">				
-                    <input type='hidden' value='{{t.getId()}}' name='id_laporan' id='id_laporan'>	
-                    <p>Apakah Anda yakin untuk menghapus data yang telah dipilih ?</p>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
-                    <input type="submit" class="btn btn-danger" value="Hapus">
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 
 {% endblock %}

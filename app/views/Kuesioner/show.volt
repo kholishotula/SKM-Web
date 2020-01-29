@@ -37,6 +37,7 @@
                 </div>
             </div>
         </div>
+        {% if page.items > 0 %}
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -69,13 +70,16 @@
                     <td>{{t.getKode()}}</td>
                     <td>
                         <a href="#editKuesionerModal{{t.getId()}}" class="edit" data-toggle="modal"><i class="fa fa-pencil" data-toggle="tooltip" title="Ubah"></i></a>
-                        <a href="#deleteKuesionerModal" class="delete" data-toggle="modal"><i class="fa fa-trash-o" aria-hidden="true" data-toggle="tooltip" title="Hapus" value="{{t.getId()}}"></i></a>
+                        <a href="#deleteKuesionerModal{{t.getId()}}" class="delete" data-toggle="modal"><i class="fa fa-trash-o" aria-hidden="true" data-toggle="tooltip" title="Hapus" value="{{t.getId()}}"></i></a>
                     </td>
                 </tr>
             {% set i = i + 1 %}
             {% endfor %}
             </tbody>
         </table>
+        {% else %}
+            <h2 class="text-danger text-center">Tidak ada data yang dapat ditampilkan<h2>
+        {% endif %} 
         <div class="text-center text-lg">
             <a href='/SKM-Web/kuesioner'>First</a>
             <a href='/SKM-Web/kuesioner?page={{page.before}}'>Previous</a>
@@ -86,6 +90,7 @@
     </div> 
 </div>
 
+{% if temp.count > 0 %}
 {% for t in temp %}
 <div id="editKuesionerModal{{t.getId()}}" class="modal fade">
     <div class="modal-dialog" style="width:50vw;">
@@ -122,7 +127,29 @@
         </div>
     </div>
 </div>
+
+<div id="deleteKuesionerModal{{t.getId()}}" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id='form-kuesioner' action='kuesioner' method='POST'>
+                <div class="modal-header">						
+                    <h4 class="modal-title">Hapus Kuesioner</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">				
+                    <input type='hidden' value='{{t.getId()}}' name='id_kuesioner' id='id_kuesioner'>	
+                    <p>Apakah Anda yakin untuk menghapus data yang telah dipilih ?</p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
+                    <input type="submit" class="btn btn-danger" value="Hapus">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endfor %}
+{% endif %}
 
 <div id="tambahKuesionerModal" class="modal fade">
     <div class="modal-dialog" style="width:50vw;">
@@ -153,27 +180,6 @@
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
                     {{form.render('Simpan')}}
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div id="deleteKuesionerModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form id='form-kuesioner' action='kuesioner' method='POST'>
-                <div class="modal-header">						
-                    <h4 class="modal-title">Hapus Kuesioner</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">				
-                    <input type='hidden' value='{{t.getId()}}' name='id_kuesioner' id='id_kuesioner'>	
-                    <p>Apakah Anda yakin untuk menghapus data yang telah dipilih ?</p>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
-                    <input type="submit" class="btn btn-danger" value="Hapus">
                 </div>
             </form>
         </div>
