@@ -22,6 +22,11 @@ class LPSESecureController extends Controller
                 }
             }
         }
+        if($dispatcher->getActionName() == 'responden'){
+            if($this->session->has('responden')){
+                return $this->response->redirect('lpse/kuesioner');
+            }
+        }
     }
     protected function back() {
         return $this->response->redirect($_SERVER['HTTP_REFERER']);

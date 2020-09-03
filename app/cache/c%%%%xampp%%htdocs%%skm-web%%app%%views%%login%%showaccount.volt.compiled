@@ -5,10 +5,10 @@
 <link href="<?= $this->url->get('css/styles.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/bootstrap.min.css') ?>" rel="stylesheet">
 <link id="css-main" href="<?= $this->url->get('css/codebase.min.css') ?>" rel="stylesheet">
-<link href="<?= $this->url->get('css/tagmanager.min.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/fontawesome.min.css') ?>" rel="stylesheet">
-<link href="<?= $this->url->get('css/Chart.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/bootstrap-select.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/tagsinput.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/Chart.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('assets/apple-touch-icon.png') ?>" rel="apple-touch-icon" sizes="180x180">
 <link href="<?= $this->url->get('assets/favicon-32x32.png') ?>" rel="icon" type="image/png" sizes="32x32">
 <link href="<?= $this->url->get('assets/favicon-16x16.png') ?>" rel="icon" type="image/png" sizes="16x16">
@@ -17,6 +17,7 @@
 <script type="text/javascript" src="<?= $this->url->get('js/jquery-3.3.1.min.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/bootstrap.bundle.min.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/popper.js') ?>"></script>
+<script type="text/javascript" src="<?= $this->url->get('js/bootstrap-select.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/tagsinput.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/Chart.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/javascript.js') ?>"></script>
@@ -96,16 +97,101 @@
                 <p><?= $data->getPendidikan() ?></p>
             </div>
         </div>
+        <div class="row justify-content-center">
+            <a href="#editProfilModal" class="btn btn-success" data-toggle="modal"><i class="fa fa-pencil" data-toggle="tooltip" title="Ubah"><b>Ubah Profil</b></i></a>
+        </div>
 	</div>
+</div>
+
+<div id="editProfilModal" class="modal fade">
+    <div class="modal-dialog modal-custom">
+        <div class="modal-content">
+            <form id='form-admin' action='admin/ubah' method='post' enctype="multipart/form-data">
+                <div class="modal-header">						
+                    <h4 class="modal-title">Ubah Profil</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body" style="height:50vh; overflow-y:auto;">
+                    <input type="hidden" name="id_admin" id="id_admin" value="<?= $data->getId() ?>">					
+                    <div class="form-group">
+                        <label><b><?= $form->getLabel('nama_admin') ?></b></label>
+                        <?= $form->render('nama_admin') ?>
+                    </div>
+                    <div class="form-group">
+                        <label><b><?= $form->getLabel('alamat') ?></b></label>
+                        <?= $form->render('alamat') ?>
+                    </div>
+                    <div class="form-group">
+                        <label><b><?= $form->getLabel('jabatan') ?></b></label>
+                        <?= $form->render('jabatan') ?>
+                    </div>
+                    <p><b>Jenis Kelamin</b></p>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <?= $form->render('P') ?>
+                                <label><?= $form->getLabel('P') ?></label> 
+                            </div>	
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <?= $form->render('L') ?>
+                                <label><?= $form->getLabel('L') ?></label>
+                            </div>	
+                        </div>
+                    </div>
+                    <p><b>Pendidikan Terakhir</b></p>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <?= $form->render('SMA') ?>
+                                <label><?= $form->getLabel('SMA') ?></label>
+                            </div>
+                            <div class="form-group">
+                                <?= $form->render('D1/D3/D4') ?>
+                                <label><?= $form->getLabel('D1/D3/D4') ?></label>
+                            </div>	
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <?= $form->render('S1') ?>
+                                <label><?= $form->getLabel('S1') ?></label>
+                            </div>
+                            <div class="form-group">
+                                <?= $form->render('S2/S3') ?>
+                                <label><?= $form->getLabel('S2/S3') ?></label>  
+                            </div>	
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><b><?= $form->getLabel('username') ?></b></label>
+                        <?= $form->render('username') ?>
+                    </div>
+                    <div class="form-group">
+                        <label><b><?= $form->getLabel('password') ?></b></label>
+                        <?= $form->render('password') ?>
+                    </div>
+                    <div class="form-group">
+                        <label for="foto_profil"><b><?= $form->getLabel('foto_profil') ?></b></label>
+                        <?= $form->render('foto_profil') ?>
+                    </div>					
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
+                    <?= $form->render('Simpan') ?>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 
 	<div class="clearfix bottom-content">
 		<div class="row" style="position: absolute; bottom: 8px; width: 100%; color: white"> 
-			<div class="col-8">
+			<div class="col-md-8">
 				<p style="padding-left: 2vw;">© Dinas Komunikasi, Informatika, dan Statistik Kota Blitar</p>
 			</div>
-			<div class="col-4">
+			<div class="col-md-4">
                 <a type="button" class="text-white" href="http://diskominfotik.blitarkota.go.id/"><i class="fa fa-globe" style="font-size:24px"></i> http://diskominfotik.blitarkota.go.id</a><br>
                 <a type="button" class="text-white" href="https://www.facebook.com/diskominfotikkotablitar/"><i class="fa fa-facebook-square" style="font-size:24px"></i> Diskominfotik Kota Blitar</a><br>
 			</div>

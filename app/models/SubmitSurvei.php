@@ -3,6 +3,7 @@
 use Phalcon\Mvc\Model;
 
 class SubmitSurvei extends Model{
+    private $id_isi_submit;
     private $id_responden;
     private $id_kuesioner;
     private $skor_akhir;
@@ -19,6 +20,10 @@ class SubmitSurvei extends Model{
         $this->skor_akhir = $skor_akhir;
         $this->kritik_saran = $kritik_saran;
         $this->tgl_submit = $tgl_submit;
+    }
+
+    public function getIdIsiSubmit(){
+        return $this->id_isi_submit;
     }
 
     public function getIdResponden(){

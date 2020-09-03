@@ -29,9 +29,9 @@ class KuesionerForm extends BaseForm {
         $kritik_saran->setLabel('Keterangan Kuesioner');
 
         $konten_layanan = new Select ('kategori_layanan', array(
-            'LPSE' => 'LPSE',
-                            'PPID' => 'PPID',
-                            'Persandian' => 'Persandian'),
+                            '1' => 'LPSE',
+                            '2' => 'PPID',
+                            '3' => 'Persandian'),
             array(
                 "useEmpty" => true,
                 "emptyText" => "Pilih kategori layanan",

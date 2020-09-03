@@ -64,5 +64,12 @@ class LaporanRekapRoutes extends RouterGroup{
                 'action' => 'searchSubmit',
             ]
         );
+
+        $this->addPost(
+            '/detail-submit',
+            [
+                'action' => 'listDetail',
+            ]
+        );
     }
 }

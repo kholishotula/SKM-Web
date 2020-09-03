@@ -27,4 +27,8 @@ class Responden extends Model{
     public function getId(){
         return $this->id_responden;
     }
+
+    public function getNama(){
+        return $this->nama_responden;
+    }
 }

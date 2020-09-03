@@ -12,8 +12,39 @@
 
             <div class="row-center">
                 {% if session.get('auth') %}
-                <div class=style="width:400px; height:400px;">
+                <div class=style="width:200px; height:200px;">
                     <canvas id="myChart"></canvas>
+                </div>
+                <div class="table-wrapper">
+                    <div class="table-title">
+                        <div class="row">
+                            <div class="col-sm-8"> <h2>Daftar <b>Responden yang Mengisi Survei</b></h2></div>
+                        </div>
+                    </div>
+                    <table id="dataTable" class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Tanggal</th>
+                                <th>Jumlah Responden</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% set i = 1%}
+                        {% for d in data %}
+                            <tr>
+                                <th>{{i}}</th>
+                                <th>{{d.label}}</th>
+                                <th>{{d.total}}</th>
+                            </tr>
+                        {% set i = i + 1 %}
+                        {% endfor %}
+                        <tbody>
+                    </table>
+                </div>
+                <div>
+                    <p>Developer : Kholishotul Amaliah (kholishotul.ka@gmail.com) dan Bella Septina (sptnbella09@gmail.com)</p>
+                </div>
                 {% else %}
                 <div id="demo" class="carousel slide" data-ride="carousel" data-interval="5000" data-pause="hover">
                     <ol class="carousel-indicators">
@@ -41,7 +72,6 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
-                {% endif %}
             </div>
             <br><br>
             <div class="row clearfix">
@@ -51,6 +81,13 @@
                 <div class="col-4 text-center">
                     <a type="button" class="btn btn-lg btn-outline-dark myButton" href="{{url('panduan')}}">Panduan</a><br><br>
                     <a type="button" class="btn btn-lg btn-outline-dark" href="{{url('survei')}}">Isi Survei</a>
+                </div>
+            </div>
+            {% endif %}
+            <div class="row clearfix" style="text-align: center; margin-top: 50px">
+                <div class="col-md-6 mr-auto ml-auto" >
+                    <h2 style="font-family: Times New Roman; color: #b30000">DOWNLOAD SEKARANG!</h2>
+                    <a href="http://skm.diskominfotik.blitarkota.go.id/apk/SKM2020.apk"><img class="img img-fluid img-responsive" src="{{url('assets/download_android.png')}}" alt="download_for_android"></a>
                 </div>
             </div>
         </div>

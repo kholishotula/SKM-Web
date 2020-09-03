@@ -20,7 +20,7 @@ class KuesionerController extends AdminKuesionerSecureController
     
 	public function createAction()
 	{
-		$this->view->notif = $this->notif;
+        $this->view->notif = $this->notif;
         $this->view->error = $this->error;
         $this->view->messages = $this->messages;
         $this->view->form = new KuesionerForm();
@@ -28,6 +28,7 @@ class KuesionerController extends AdminKuesionerSecureController
     
     public function storeAction()
 	{
+
         if(!$this->request->isPost())
             $this->response->redirect();
 
@@ -43,33 +44,33 @@ class KuesionerController extends AdminKuesionerSecureController
             $id_admin = $this->session->get('auth')['id'];
             $keterangan = $this->request->getPost('kritik_saran');
             $kode_verifikasi = $this->request->getPost('kode_verifikasi');
-            $nama_layanan = $this->request->getPost('kategori_layanan');
+            $id_layanan = $this->request->getPost('kategori_layanan');
+            $aktif = 0;
             $hasil_tags = $this->request->getPost('pilihan');
 
-            if($nama_layanan==""){
+            if($id_layanan==""){
                 $this->response->redirect('kuesioner');
             }
-
-            $stringArray = preg_replace("/[^0-9\,]/", "", $hasil_tags);
-            $intArray = array_map('intval',explode(",",$stringArray));
     
             $kuesioner_survei = new Kuesioner();
-            $kuesioner_survei->construct($id_admin,$nama_layanan,$keterangan,$kode_verifikasi);
+            $kuesioner_survei->construct($id_admin,$id_layanan,$keterangan,$kode_verifikasi,$aktif);
 
             if($kuesioner_survei->save()){
                 $this->notif = 'Kuesioner berhasil ditambahkan';
                 $values = "";
 
                 $query = "INSERT INTO `terdiri_dari` (`id_kuesioner`,`id_pertanyaan`) VALUES";
-                foreach ($intArray as $t){
-                    $values .= "(" . $kuesioner_survei->getId() . "," . $t . "),";
+                foreach ($hasil_tags as $t){
+                    if($t != 0){
+                        $values .= "(" . $kuesioner_survei->getId() . "," . $t . "),";
+                    }
                 }
                 $values = substr($values,0,strlen($values)-1);
                 $query .= $values;
                 $this->db->query($query);
             }
             else{
-                $this->error = 'Terjadi error saat menambahkan. Coba ulangi kembali'; 
+                $this->flashSession->error('Terjadi error saat menambahkan. Coba ulangi kembali'); 
             }
         }
         $this->response->redirect('kuesioner');
@@ -82,23 +83,30 @@ class KuesionerController extends AdminKuesionerSecureController
         }
 
         $id_kuesioner = $this->request->getPost('id_kuesioner');
-        if($id_kuesioner == null){
-            $this->error = "Tidak dapat menemukan data. Coba ulang kembali";
-        }
-        else{
+        $arr_id = $this->request->getPost("id_kuesioners");
+
+        if($id_kuesioner != null){
             $kuesioner = Kuesioner::findFirst("id_kuesioner=$id_kuesioner");
-            if($kuesioner != null){
-                if($kuesioner->delete()){
-                    $this->success = "Kuesioner berhasil dihapus";
-                }
-                else{
-                    $this->error = "Terjadi error. Coba ulang kembali.";
-                }
+            if($kuesioner->delete()){
+                $query = "DELETE FROM `terdiri_dari` WHERE `id_kuesioner`=$id_kuesioner DELETE CASCADE;";
+                $this->db->query($query);
+
+                $this->flashSession->success('Kuesioner berhasil dihapus');
             }
             else{
-                $this->error = "Tidak dapat menemukan data. Coba ulang kembali.";
+                $this->flashSession->error('Terjadi error. Coba ulang kembali');
             }
         }
+        else if($arr_id != null){
+            $intArray = array_map('intval',explode(",",$arr_id));
+            foreach($intArray as $idx){
+                Kuesioner::findFirst("id_kuesioner=$idx")->delete();
+
+                $query = "DELETE FROM `terdiri_dari` WHERE `id_kuesioner`=$idx;";
+                $this->db->query($query);
+            }
+            $this->flashSession->success('Kuesioner berhasil dihapus');
+        } 
         $this->response->redirect('kuesioner');
 	}
 
@@ -106,6 +114,15 @@ class KuesionerController extends AdminKuesionerSecureController
 	{
         $temp = Kuesioner::find();
         $pertanyaan = Pertanyaan::find();
+        $i = 0;
+        $temp2 = [];
+        foreach($temp as $t){
+            $idx = $t->getIdLayanan();
+            $temp2[$i++] = Layanan::findFirst([
+                'columns' => 'nama_layanan',
+                'conditions' => 'id_layanan = '.$idx ,
+            ]);
+        }
 
         $currentPage = (int) $_GET['page'];
         $paginator = new PaginatorModel(
@@ -119,9 +136,8 @@ class KuesionerController extends AdminKuesionerSecureController
 
         $this->view->temp = $temp;
         $this->view->pertanyaan = $pertanyaan;
+        $this->view->layanan = $temp2;
         $this->view->page = $page;
-        $this->view->error = $this->error;
-        $this->view->notif = $this->notif;
         $this->view->form = new KuesionerForm();
     }
     
@@ -135,37 +151,33 @@ class KuesionerController extends AdminKuesionerSecureController
             foreach ($form->getMessages() as $msg){
                 $this->messages[$msg->getField()] = $msg;
             }
-            $this->error = 'Tidak dapat melakukan perbaruan data';
+            $this->flashSession->error('Tidak dapat melakukan perbaruan data');
         }
         else{
             $id_kuesioner = $this->request->getPost('id_kuesioner');          
 			$kuesioner = Kuesioner::findFirst("id_kuesioner='$id_kuesioner'");
 
             if($kuesioner==null){
-                $this->error = 'Terjadi error saat pencarian data';
+                $this->flashSession->error('Terjadi error saat pencarian data');
             }
             else{
                 $id_admin = $this->session->get('auth')['id'];
-                $model_kuesioner = 'Online'; 
                 $kode_verifikasi = $this->request->getPost('kode_verifikasi');
                 $keterangan_kuesioner = $this->request->getPost('kritik_saran');
-                $nama_layanan = $this->request->getPost('kategori_layanan');
+                $id_layanan = $this->request->getPost('kategori_layanan');
                 $pertanyaan =$this->request->getPost('pilihan');
+                $aktif = 0;
 
-                $stringArray = preg_replace("/[^0-9\,]/", "", $pertanyaan);
-                $intArray = array_map('intval',explode(",",$stringArray));
-
-                $kuesioner->construct($id_admin,$nama_layanan,$keterangan_kuesioner,$kode_verifikasi);
+                $kuesioner->construct($id_admin,$id_layanan,$keterangan_kuesioner,$kode_verifikasi,$aktif);
 
                 if($kuesioner->update()){
                     $this->notif = 'Informasi data kuesioner berhasil di perbarui';
 
-                    $id = intval($id_kuesioner);
-                    $query = "DELETE FROM `terdiri_dari` WHERE `id_kuesioner`=$id;";
+                    $query = "DELETE FROM `terdiri_dari` WHERE `id_kuesioner`=$id_kuesioner;";
                     $this->db->query($query);
 
                     $query = "INSERT INTO `terdiri_dari` (`id_kuesioner`,`id_pertanyaan`) VALUES";
-                    foreach ($intArray as $t){
+                    foreach ($pertanyaan as $t){
                         $values .= "(" . $kuesioner->getId() . "," . $t . "),";
                     }
                     $values = substr($values,0,strlen($values)-1);
@@ -173,7 +185,7 @@ class KuesionerController extends AdminKuesionerSecureController
                     $this->db->query($query);
                 }
                 else{
-                    $this->error = 'Terjadi error. Coba ulang kembali';
+                    $this->flashSession->error('Terjadi error. Coba ulang kembali');
                 }
             }
         }        
@@ -190,6 +202,16 @@ class KuesionerController extends AdminKuesionerSecureController
             $query1 = $this->modelsManager->createQuery('SELECT * FROM Kuesioner WHERE CONCAT(id_kuesioner,keterangan,kode_verifikasi) LIKE "%'.$cari.'%"');
             $temp = $query1->execute();
             $pertanyaan = Pertanyaan::find();
+
+            $i = 0;
+            $temp2 = [];
+            foreach($temp as $t){
+                $idx = $t->getIdLayanan();
+                $temp2[$i++] = Layanan::findFirst([
+                    'columns' => 'nama_layanan',
+                    'conditions' => 'id_layanan = '.$idx ,
+                ]);
+            }
 
             if($temp == null){
                 $this->response->redirect('kuesioner');
@@ -208,9 +230,54 @@ class KuesionerController extends AdminKuesionerSecureController
             $this->view->temp = $temp;
             $this->view->pertanyaan = $pertanyaan;
             $this->view->page = $page;
+            $this->view->layanan = $temp2;
             $this->view->error = $this->error;
             $this->view->notif= $this->notif;
             $this->view->form = new KuesionerForm();
         }
+    }
+
+    public function changeStatusAction(){
+        $idx = $this->request->getPost('id_kuesioner');
+        $kuesioner = Kuesioner::findFirst("id_kuesioner='$idx'");
+
+        if($kuesioner != null){
+            $id = $kuesioner->getIdLayanan();
+
+            $id_admin = $this->session->get('auth')['id'];
+            $kode_verifikasi = $kuesioner->getKode();
+            $keterangan_kuesioner = $kuesioner->getKeterangan();
+            $id_layanan = $kuesioner->getIdLayanan();
+            if($kuesioner->getAktif() == 0){
+                $aktif = 1;
+            }
+            else{
+                $aktif = 0;
+            }
+
+            $kuesioner->construct($id_admin,$id_layanan,$keterangan_kuesioner,$kode_verifikasi,$aktif);
+            if($kuesioner->update()){
+                $this->flashSession->success('Data kuesioner berhasil diperbarui');
+            }
+            else{
+                $this->flashSession->error('Data kuesioner gagal diperbarui');
+            }
+        }
+        else{
+            $this->flashSession->error('Data kuesioner tidak ditemukan');
+        }
+        $this->response->redirect('kuesioner');
+    }
+
+    public function createPdfAction(){
+        $this->view->disable();
+        $userId = $this->request->getPost('bbb');   
+        $rez['rez'] = Users::findFirstById($userId);
+        $html = $this->view->getRender('reports', 'pdf_report', $rez);
+        $pdf = new mPDF();
+        $pdf->WriteHTML($html, 2);
+        $br = rand(0, 100000);
+        $ispis = "Pobjeda Rudet-Izvjestaj-".$br;
+        $pdf->Output($ispis, "I");
     }
 };

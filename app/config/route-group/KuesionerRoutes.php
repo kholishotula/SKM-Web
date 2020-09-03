@@ -58,5 +58,12 @@
 					'action' => 'search',
 				]
 			);
+
+			$this->addPost(
+				'/change',
+				[
+					'action' => 'changeStatus',
+				]
+			);
 		}
 	}

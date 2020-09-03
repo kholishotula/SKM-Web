@@ -44,5 +44,19 @@
 					'action' => 'showAccount',
 				]
 			);
+
+			$this->addGet(
+				'/admin/ubah',
+				[
+					'action' => 'edit',
+				]
+			);
+
+			$this->addPost(
+				'/admin/ubah',
+				[
+					'action' => 'update',
+				]
+			);
 		}
 	}

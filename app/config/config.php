@@ -3,8 +3,13 @@
 use Phalcon\Config;
 
 return new Config([
-
 	'database' => [
+		// 'adapter' => 'Phalcon\Db\Adapter\Pdo\Mysql',
+		// 'host' => 'localhost',
+		// 'username' => 'skmdiskominfotik',
+		// 'password' => 's3mbarang@',
+		// 'dbname' => 'skmdiskominfotik_skm'
+
 		'adapter' => 'Phalcon\Db\Adapter\Pdo\Mysql',
 		'host' => '127.0.0.1',
 		'username' => 'root',
@@ -15,7 +20,6 @@ return new Config([
 	'url' => [
 		'baseUrl' => 'http://localhost/SKM-Web/'
 	]
-
 ]);
 
 ?>

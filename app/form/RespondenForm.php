@@ -10,7 +10,6 @@ use Phalcon\Forms\Element\Submit;
 
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\PresenceOf;
-use Phalcon\Validation\Validator\Alnum;
 
 use Phalcon\Tag;
 
@@ -25,11 +24,6 @@ class RespondenForm extends BaseForm {
         $nama->addValidator(new PresenceOf(
         [
             'message' => 'Harap isi bidang nama'
-        ]));
-
-        $nama->addValidator(new Alnum(
-        [
-            'message' => 'Nama tidak valid'
         ]));
 
         $Kota = new Radio("Kota", array('name' => 'asal', 'value' => 'Kota Blitar'));
@@ -65,11 +59,6 @@ class RespondenForm extends BaseForm {
         $nama_instansi->addValidator(new PresenceOf(
         [
             'message' => 'Harap isi bidang nama instansi'
-        ]));
-
-        $nama_instansi->addValidator(new Alnum(
-        [
-            'message' => 'Nama instansi tidak valid'
         ]));
 
         $PPK = new Radio("PPK", array('name' => 'jabatan', 'value' => 'PPK'));

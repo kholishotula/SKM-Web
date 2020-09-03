@@ -21,6 +21,16 @@ class LaporanController extends AdminLaporanSecureController
 
 	public function laporanAction()
 	{
+		$query = "select t.ranges as ranges , count(*) as total from 
+		(select case 
+			   when skor_akhir between 25 and 40 then '25-40' 
+			   when skor_akhir between 41 and 60 then '41-60' 
+			   when skor_akhir between 61 and 80 then '61-80' 
+			   else '81-100' end as ranges from isi_submit) t 
+		group by t.ranges";
+
+		$datas = $this->db->fetchAll($query,\Phalcon\Db::FETCH_ASSOC);
+
 		$tahun = date("Y", time()) - 4;
 		$id_laporan = LaporanRekapitulasi::find(
 			[
@@ -30,6 +40,7 @@ class LaporanController extends AdminLaporanSecureController
 		);
 
 		$this->view->laporan = $id_laporan;
+		$this->view->datas = $datas;
 	}
 
 	public function createAction()
@@ -74,7 +85,7 @@ class LaporanController extends AdminLaporanSecureController
 				$this->view->form = new LaporanRekapForm();
 			}
 			else{
-				$this->error = 'Terjadi kesalahan saat menyimpan data. Coba ulangi kembali';
+				$this->flashSession->error('Terjadi kesalahan saat menyimpan data. Coba ulangi kembali');
 			}
         }
 		return $this->response->redirect('tampil-rekap');
@@ -93,35 +104,54 @@ class LaporanController extends AdminLaporanSecureController
         }
 
 		$id_laporan = $this->request->getPost('id_laporan');
+		$arr_id = $this->request->getPost("id_laporans");
 
-        if($id_laporan == null){
-            $this->error = "Tidak dapat menemukan data. Coba ulang kembali";
-        }
-        else{
-            $laporan = LaporanRekapitulasi::findFirst("id_laporan=$id_laporan");
-            if($laporan != null){
+		if($id_laporan != null){
+			$laporan = LaporanRekapitulasi::findFirst("id_laporan=$id_laporan");
+			if($laporan != null){
 				$fileLoc = BASE_PATH . '//public//' . $laporan->getFile();
                 if($laporan->delete()){
 					if(!unlink($fileLoc)){
-						$this->error = 'File tidak dapat dihapus';
+						$this->flashSession->error('File tidak dapat dihapus');
 					}
 					else{
-						$this->success = "Data laporan berhasil dihapus";
+						$this->flashSession->success('Data laporan berhasil dihapus');
 					}
                 }
                 else{
-                    $this->error = "Terjadi error. Coba ulang kembali.";
+					$this->flashSession->error('Terjadi error. Coba ulangi kembali');
                 }
             }
-            else{
-                $this->error = "Tidak dapat menemukan data. Coba ulang kembali.";
+        }
+        else if($arr_id != null){
+			$intArray = array_map('intval',explode(",",$arr_id));
+            foreach($intArray as $idx){
+				$laporan = LaporanRekapitulasi::findFirst("id_laporan=$idx");
+				if($laporan != null){
+					$fileLoc = BASE_PATH . '//public//' . $laporan->getFile();
+					unlink($fileLoc);
+					$laporan->delete();
+				}
             }
+            $this->flashSession->success('Laporan berhasil dihapus');
         }
         $this->response->redirect('tampil-rekap');
 	}
 
 	public function listSubmitAction(){
 		$temp = SubmitSurvei::find();
+		$query1 = $this->modelsManager->createQuery('SELECT nama_responden, nama_layanan FROM SubmitSurvei s,Responden r, Kuesioner k, Layanan l
+													 WHERE s.id_responden = r.id_responden AND s.id_kuesioner = k.id_kuesioner AND k.id_layanan = l.id_layanan');
+		$temp1 = $query1->execute();
+
+		$i = 0;
+		$temp2 = [];
+		foreach($temp as $t){
+			$idx = $t->getIdIsiSubmit();
+			$query2 = $this->modelsManager->createQuery("SELECT konten_pertanyaan, nilai FROM SubmitSurvei s, SubmissionDetail sd, Pertanyaan p
+														 WHERE s.id_isi_submit = sd.id_isi_submit AND sd.id_pertanyaan = p.id_pertanyaan AND sd.id_isi_submit = '$idx'");
+			$temp2[$i++] = $query2->execute();
+		}
 
 		$currentPage = (int) $_GET['page'];
         $paginator = new PaginatorModel(
@@ -134,11 +164,31 @@ class LaporanController extends AdminLaporanSecureController
         $page = $paginator->getPaginate();
 
 		$this->view->temp = $temp;
+		$this->view->res = $temp1;
+		$this->view->detail = $temp2;
 		$this->view->page = $page;
+	}
+
+	public function listDetailAction(){
+		// $idx = $this->request->getPost('idx');
+		// $temp = SubmissionDetail::find("id_isi_submit='$idx'");
+
+		// $this->view->data = $temp;
+		// // $this->dispatcher->forward(['action' => 'listSubmit']);
 	}
 
 	public function listRekapAction(){
 		$temp = LaporanRekapitulasi::find();
+		$query = "select t.ranges as ranges , count(*) as total from 
+				 (select case 
+						when skor_akhir between 25 and 40 then '25-40' 
+						when skor_akhir between 41 and 60 then '41-60' 
+						when skor_akhir between 61 and 80 then '61-80' 
+						else '81-100' end as ranges from isi_submit) t 
+				 group by t.ranges";
+		
+		$datas = $this->db->fetchAll($query,\Phalcon\Db::FETCH_ASSOC);
+		//var_dump($datas);die();
 
 		$currentPage = (int) $_GET['page'];
         $paginator = new PaginatorModel(
@@ -153,6 +203,7 @@ class LaporanController extends AdminLaporanSecureController
 
 		$this->view->temp = $temp;
 		$this->view->page = $page;
+		$this->view->datas = $datas;
 		$this->view->notif = $this->notif;
         $this->view->error = $this->error;
         $this->view->messages = $this->messages;
@@ -177,7 +228,7 @@ class LaporanController extends AdminLaporanSecureController
 			$laporan = LaporanRekapitulasi::findFirst("id_laporan=$id_laporan");
            
             if($laporan==null){
-                $this->error = 'Terjadi error saat pencarian data';
+                $this->flashSession->error('Terjadi error saat pencarian data');
             }
             else{
 				$fileLoc = BASE_PATH . '//public//' . $laporan->getFile();
@@ -219,7 +270,20 @@ class LaporanController extends AdminLaporanSecureController
         }
         else{
             $query1 = $this->modelsManager->createQuery('SELECT * FROM SubmitSurvei WHERE CONCAT(id_kuesioner,skor_akhir,kritik_saran,tgl_submit) LIKE "%'.$cari.'%"');
-            $temp = $query1->execute();
+			$temp = $query1->execute();
+			
+			$query1 = $this->modelsManager->createQuery('SELECT nama_responden, nama_layanan FROM SubmitSurvei s,Responden r, Kuesioner k, Layanan l
+			WHERE s.id_responden = r.id_responden AND s.id_kuesioner = k.id_kuesioner AND k.id_layanan = l.id_layanan');
+			$temp1 = $query1->execute();
+
+			$i = 0;
+			$temp2 = [];
+			foreach($temp as $t){
+			$idx = $t->getIdIsiSubmit();
+			$query2 = $this->modelsManager->createQuery("SELECT konten_pertanyaan, nilai FROM SubmitSurvei s, SubmissionDetail sd, Pertanyaan p
+														 WHERE s.id_isi_submit = sd.id_isi_submit AND sd.id_pertanyaan = p.id_pertanyaan AND sd.id_isi_submit = '$idx'");
+			$temp2[$i++] = $query2->execute();
+}
 
             if($temp->count() <= 0){
                 $this->response->redirect('submission');
@@ -236,7 +300,9 @@ class LaporanController extends AdminLaporanSecureController
             $page = $paginator->getPaginate();
 
             $this->view->temp = $temp;
-            $this->view->page = $page;
+			$this->view->page = $page;
+			$this->view->res = $temp1;
+			$this->view->detail = $temp2;
             $this->view->notif = $this->notif;
             $this->view->error = $this->error;
 			$this->view->success = $this->succes;
@@ -253,26 +319,35 @@ class LaporanController extends AdminLaporanSecureController
             $query1 = $this->modelsManager->createQuery('SELECT * FROM LaporanRekapitulasi WHERE CONCAT(judul_laporan,tahun_laporan,tgl_upload) LIKE "%'.$cari.'%"');
 			$temp = $query1->execute();
 
+			$query = "select t.ranges as ranges , count(*) as total from 
+					  (select case 
+						when skor_akhir between 25 and 40 then '25-40' 
+						when skor_akhir between 41 and 60 then '41-60' 
+						when skor_akhir between 61 and 80 then '61-80' 
+						else '81-100' end as ranges from isi_submit) t 
+					  group by t.ranges";
+   
+   			$datas = $this->db->fetchAll($query,\Phalcon\Db::FETCH_ASSOC);
+
             if($temp->count() <= 0){
                 $this->response->redirect('tampil-rekap');
-            }
-
-            $currentPage = (int) $_GET['page'];
-            $paginator = new PaginatorModel(
-                [
-                    'data'  => $temp,
-                    'limit' => 10,
-                    'page'  => $currentPage,
-                ]
-            );
-            $page = $paginator->getPaginate();
-
-            $this->view->temp = $temp;
-            $this->view->page = $page;
-            $this->view->notif = $this->notif;
-            $this->view->error = $this->error;
-			$this->view->success = $this->succes;
-			$this->view->form = new LaporanRekapForm();
+			}
+			else{
+				$currentPage = (int) $_GET['page'];
+				$paginator = new PaginatorModel(
+					[
+						'data'  => $temp,
+						'limit' => 10,
+						'page'  => $currentPage,
+					]
+				);
+				$page = $paginator->getPaginate();
+	
+				$this->view->temp = $temp;
+				$this->view->page = $page;
+				$this->view->datas = $datas;
+				$this->view->form = new LaporanRekapForm();
+			}
 		}
 	} 
 };

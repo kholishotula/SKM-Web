@@ -17,7 +17,19 @@ class LPSEController extends LPSESecureController
     }
     
     public function respondenAction(){
+        $id_kues = Kuesioner::find(
+            [
+                'columns' => 'id_kuesioner',
+                'conditions' => 'id_layanan = 1 AND aktif = 1'
+            ]
+        );
+        
+        if($id_kues->count() == null){
+            $this->response->redirect('survei/error');
+        }
+
         $this->view->form = new RespondenForm();
+
     }
 
     public function storeRespondAction(){
@@ -60,10 +72,23 @@ class LPSEController extends LPSESecureController
     }
 
     public function kuesionerAction(){
+        $id_kues = Kuesioner::find(
+            [
+                'columns' => 'id_kuesioner',
+                'conditions' => 'id_layanan = 1 AND aktif = 1'
+            ]
+        );
+        
+        if($id_kues->count() == null){
+            $this->response->redirect('survei/error');
+        }
+
+        $id_kues = $id_kues[0][id_kuesioner];
+
         $id = KuesionerPertanyaan::find(
             [
                 'columns' => 'id_pertanyaan',
-                'conditions' => 'id_kuesioner = 1',
+                'conditions' => 'id_kuesioner = ' . $id_kues,
             ]
         );
         $temp;
@@ -84,10 +109,17 @@ class LPSEController extends LPSESecureController
         if($kritik == null){
             $this->flashSession->error('Harap isi kritik dan saran');
         }
+        $id_kues = Kuesioner::find(
+            [
+                'columns' => 'id_kuesioner',
+                'conditions' => 'id_layanan = 1 AND aktif = 1'
+            ]
+        );
+        $id_kues = $id_kues[0][id_kuesioner];
         $id_pertanyaan = KuesionerPertanyaan::find(
             [
                 'columns' => 'id_pertanyaan',
-                'conditions' => 'id_kuesioner = 1',
+                'conditions' => 'id_kuesioner = ' . $id_kues,
             ]
         );
         $skor = 0;
@@ -104,23 +136,41 @@ class LPSEController extends LPSESecureController
         $skor = ($skor/(count($id_pertanyaan)*4))*100;
 
         $id_responden = $this->session->get('responden')['id'];
-        $date = date('Y-m-d', time());
+        $date = date('Y-m-d');
         $submission = new SubmitSurvei();
-        $submission->construct($id_responden, '1', $skor, $kritik, $date);
+        $submission->construct($id_responden, $id_kues, $skor, $kritik, $date);
 
         if($submission->save() == FALSE){
             $this->response->redirect('lpse/kuesioner');
         }
         else{
+            $i = 1;
+            $id_isi_submit = $submission->getIdIsiSubmit();
+            foreach($id_pertanyaan as $temp){
+                $nilai = $this->request->getPost('poin' . $i);
+                $submissionDetail = new SubmissionDetail();
+                $id_tanya = $id_pertanyaan[$i-1][id_pertanyaan];
+                $submissionDetail->construct($id_isi_submit, $id_tanya, $nilai);
+                if($submissionDetail->save()){
+                    $i++;
+                }
+            }
             $this->response->redirect('lpse/hasil-kuesioner');
         }
     }
 
     public function hasilKuesionerAction(){
+        $id_kues = Kuesioner::find(
+            [
+                'columns' => 'id_kuesioner',
+                'conditions' => 'id_layanan = 1 AND aktif = 1'
+            ]
+        );
+        $id_kues = $id_kues[0][id_kuesioner];
         $skor = SubmitSurvei::find(
             [
                 'columns' => 'skor_akhir',
-                'conditions' => 'id_responden = ' . $this->session->get('responden')['id'] . ' AND id_kuesioner = 1',
+                'conditions' => 'id_responden = ' . $this->session->get('responden')['id'] . ' AND id_kuesioner = ' . $id_kues,
             ]
         );
         $this->view->skor = $skor[0][skor_akhir];

@@ -1,14 +1,14 @@
-a:5:{i:0;s:1631:"<!DOCTYPE html>
+a:5:{i:0;s:1730:"<!DOCTYPE html>
 <html>
 <head>
 	 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <link href="<?= $this->url->get('css/styles.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/bootstrap.min.css') ?>" rel="stylesheet">
 <link id="css-main" href="<?= $this->url->get('css/codebase.min.css') ?>" rel="stylesheet">
-<link href="<?= $this->url->get('css/tagmanager.min.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/fontawesome.min.css') ?>" rel="stylesheet">
-<link href="<?= $this->url->get('css/Chart.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/bootstrap-select.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/tagsinput.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/Chart.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('assets/apple-touch-icon.png') ?>" rel="apple-touch-icon" sizes="180x180">
 <link href="<?= $this->url->get('assets/favicon-32x32.png') ?>" rel="icon" type="image/png" sizes="32x32">
 <link href="<?= $this->url->get('assets/favicon-16x16.png') ?>" rel="icon" type="image/png" sizes="16x16">
@@ -17,6 +17,7 @@ a:5:{i:0;s:1631:"<!DOCTYPE html>
 <script type="text/javascript" src="<?= $this->url->get('js/jquery-3.3.1.min.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/bootstrap.bundle.min.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/popper.js') ?>"></script>
+<script type="text/javascript" src="<?= $this->url->get('js/bootstrap-select.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/tagsinput.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/Chart.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/javascript.js') ?>"></script>
@@ -71,13 +72,13 @@ a:5:{i:0;s:1631:"<!DOCTYPE html>
     </div>
 <!-- END Header Content -->
 
-	";s:7:"content";a:1:{i:0;a:4:{s:4:"type";i:357;s:5:"value";s:1:" ";s:4:"file";s:51:"C:\xampp\htdocs\SKM-Web\app/views\layouts\base.volt";s:4:"line";i:10;}}i:2;s:737:"
+	";s:7:"content";a:1:{i:0;a:4:{s:4:"type";i:357;s:5:"value";s:1:" ";s:4:"file";s:51:"C:\xampp\htdocs\SKM-Web\app/views\layouts\base.volt";s:4:"line";i:10;}}i:2;s:743:"
 	<div class="clearfix bottom-content">
 		<div class="row" style="position: absolute; bottom: 8px; width: 100%; color: white"> 
-			<div class="col-8">
+			<div class="col-md-8">
 				<p style="padding-left: 2vw;">© Dinas Komunikasi, Informatika, dan Statistik Kota Blitar</p>
 			</div>
-			<div class="col-4">
+			<div class="col-md-4">
                 <a type="button" class="text-white" href="http://diskominfotik.blitarkota.go.id/"><i class="fa fa-globe" style="font-size:24px"></i> http://diskominfotik.blitarkota.go.id</a><br>
                 <a type="button" class="text-white" href="https://www.facebook.com/diskominfotikkotablitar/"><i class="fa fa-facebook-square" style="font-size:24px"></i> Diskominfotik Kota Blitar</a><br>
 			</div>

@@ -30,7 +30,7 @@ class PertanyaanController extends AdminPertanyaanSecureController
 
         $form = new PertanyaanForm();
         if(!$this->session->has('auth')){
-            $this->error = 'Anda harus log in terlebih dahulu untuk menambahkan data';
+            $this->flashSession->error('Anda harus log in terlebih dahulu untuk menambahkan data');
             $this->dispatcher->forward(['action' => 'index']);
         }
 
@@ -41,7 +41,7 @@ class PertanyaanController extends AdminPertanyaanSecureController
         }
 
         if($this->messages['konten_pertanyaan']==null){
-            $konten_pertanyaan = $this->request->getPost('konten_pertanyaan');
+            $konten_pertanyaan = "'" . $this->request->getPost('konten_pertanyaan') ."'";
             $tgl_submit = date('Y-m-d');
 
             $tanya = new Pertanyaan();
@@ -125,22 +125,29 @@ class PertanyaanController extends AdminPertanyaanSecureController
         }
 
         $id_pertanyaan = $this->request->getPost('id_pertanyaan');
-        if($id_pertanyaan == null){
-            $this->error = "Tidak dapat menemukan data. Coba ulang kembali";
-        }
-        else{
+        $arr_id = $this->request->getPost("id_pertanyaans");
+
+        if($id_pertanyaan != null){
             $pertanyaan = Pertanyaan::findFirst("id_pertanyaan=$id_pertanyaan");
-            if($pertanyaan != null){
-                if($pertanyaan->delete()){
-                    $this->success = "Pertanyaan berhasil dihapus";
-                }
-                else{
-                    $this->error = "Terjadi error. Coba ulang kembali";
-                }
+            if($pertanyaan->delete()){
+                $query = "DELETE FROM `terdiri_dari` WHERE `id_pertanyaan`=$id_pertanyaan;";
+                $this->db->query($query);
+
+                $this->flashSession->success('Pertanyaan berhasil dihapus');
             }
             else{
-                $this->error = "Tidak dapat menemukan data. Coba ulang kembali";
+                $this->flashSession->error('Terjadi error. Coba ulang kembali');
             }
+        }
+        else if($arr_id != null){
+            $intArray = array_map('intval',explode(",",$arr_id));
+            foreach($intArray as $idx){
+                Pertanyaan::findFirst("id_pertanyaan=$idx")->delete();
+
+                $query = "DELETE FROM `terdiri_dari` WHERE `id_pertanyaan`=$idx;";
+                $this->db->query($query);
+            }
+            $this->flashSession->success('Pertanyaan berhasil dihapus');
         }
         $this->dispatcher->forward(['action'=>'show']);
     }

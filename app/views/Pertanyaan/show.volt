@@ -25,7 +25,7 @@
                 <div class="col-sm-6"><h2>Kelola <b>Pertanyaan</b></h2></div>
                 <div class="col-sm-6">
                     <a href="#tambahPertanyaanModal" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus"></i> <span>Tambah Pertanyaan</span></a>
-                    <a href="#deletePertanyaanModal" class="btn btn-danger" data-toggle="modal"><i class="fa fa-trash-o"></i> <span>Hapus</span></a>						
+                    <!--<a href="#deletePertanyaanModal" id="coba1" class="btn btn-danger" data-toggle="modal"><i class="fa fa-trash-o"></i> <span>Hapus</span></a>-->						
                 </div>
             </div>
         </div>
@@ -33,12 +33,7 @@
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>
-                        <span class="custom-checkbox">
-                            <input type="checkbox" id="selectAll">
-                            <label for="selectAll"></label>
-                        </span>
-                    </th>
+                    <th></th>
                     <th>No.</th>
                     <th>Judul Pertanyaan</th>
                     <th>Aksi</th>
@@ -49,7 +44,7 @@
                 <tr>
 					<td>
 						<span class="custom-checkbox">
-							<input type="checkbox" id="checkbox1" name="options[]" value="1">
+							<input type="checkbox" id="checkbox1" name="options" value="{{t.getId()}}">
 							<label for="checkbox1"></label>
 						</span>
 					</td>
@@ -57,7 +52,7 @@
                     <td>{{t.getKonten()}}</td>
                     <td>
                         <a href="#editPertanyaanModal{{t.getId()}}" class="edit" data-toggle="modal"><i class="fa fa-pencil" data-toggle="tooltip" title="Ubah" value='{{t.getId()}}'></i></a>
-                        <a href="#deletePertanyaanModal{{t.getId()}}" class="delete" data-toggle="modal"><i class="fa fa-trash-o" data-toggle="tooltip" title="Delete" value='{{t.getId()}}'></i></a>
+                        <!--<a href="#deletePertanyaanModal{{t.getId()}}" class="delete" data-toggle="modal"><i class="fa fa-trash-o" data-toggle="tooltip" title="Delete" value='{{t.getId()}}'></i></a>-->
                     </td>
                 </tr>
             {% set i = i + 1 %}
@@ -114,8 +109,8 @@
                     <input type='hidden' value='{{t.getId()}}' name='id_pertanyaan' id='id_pertanyaan'>				
                     <div class="form-group">
                         <label>{{form.getLabel('konten_pertanyaan')}}</label>
-                        <input type='text' name='konten_pertanyaan' class="form-control" value="{{t.getKonten()}}" placeholder="Masukkan Pertanyaan">
-                    </div>					
+                        <textarea name='konten_pertanyaan' class="form-control" rows="4" cols="50">{{t.getKonten()}}</textarea>
+                    </div>				
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
@@ -148,5 +143,26 @@
 </div>
 {% endfor %}
 {% endif %}
+
+<div id="deletePertanyaanModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id='form-pertanyaan' action='pertanyaan' method='POST'>
+                <div class="modal-header">						
+                    <h4 class="modal-title">Hapus Pertanyaan</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">				
+                    <input type='hidden' value='' name='id_pertanyaans' id='hiddens'>
+                    <p>Apakah Anda yakin untuk menghapus data yang telah dipilih ?</p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
+                    <input type="submit" class="btn btn-danger" value="Hapus">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

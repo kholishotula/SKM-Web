@@ -17,7 +17,42 @@
             {{ this.flash.error(error) }}
         {% endif %}
     </div>
-    <div class="row" style="margin-left:50vw; margin-bottom:-2vw;">
+    <div class=style="width:200px; height:200px;">
+        <canvas id="myChart"></canvas>
+        <div class="pull-right">
+            {% set var = "25-40 : Tidak Puas , " ~ "41-60 : Kurang Puas , " ~ "61-80 : Puas , " ~ "81-100 : Sangat Puas" %}
+            <h8><b>{{var}}</b></h8> 
+        </div>
+    </div>
+    <div class="table-wrapper">
+        <div class="table-title" style="display:none">
+            <div class="row">
+                <div class="col-sm-8"> <h2>Daftar Jumlah <b>Responden Berdasarkan Tingkat Kepuasan</b></h2></div>
+            </div>
+        </div>
+        <table id="dataTable1" class="table table-striped table-hover" style="display:none">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Nilai Kepuasan</th>
+                    <th>Jumlah Responden</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% set i = 1%}
+            {% for i in 1.. datas|length %}
+                <tr>
+                    <th>{{i}}</th>
+                    <th>{{datas[i-1]['ranges']}}</th>
+                    <th>{{datas[i-1]['total']}}</th>
+                </tr>
+            {% set i = i + 1 %}
+            {% endfor %}
+            <tbody>
+        </table>
+    </div>
+
+    <div class="row" style="margin-left:50vw;">
         <form id="form-pertanyaan" action="carilaporan" method="GET">
             <div class="col-sm-12 input-group mb-3">
                 <input type="text" class="form-control" placeholder="Cari ..." name="search">
@@ -36,7 +71,7 @@
                 <div class="col-sm-6"></div>
                 <div class="col-sm-6">
                     <a href="#tambahLaporanRekapModal"  class="btn btn-success" data-toggle="modal"><i class="fa fa-plus"></i><span>Tambah Laporan Rekap</span></a>
-                    <a href="#deleteLaporanRekapModal" class="btn btn-danger" data-toggle="modal"><i class="fa fa-trash-o"></i><span>Hapus</span></a>						
+                    <a href="#deleteLaporanRekapModal" id="coba2" class="btn btn-danger" data-toggle="modal"><i class="fa fa-trash-o"></i><span>Hapus</span></a>						
                 </div>
             </div>
         </div>
@@ -44,12 +79,7 @@
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>
-                        <span class="custom-checkbox">
-                            <input type="checkbox" id="selectAll">
-                            <label for="selectAll"></label>
-                        </span>
-                    </th>
+                    <th></th>
                     <th>No.</th>
                     <th>Judul Laporan</th>
                     <th>Tahun Laporan</th>
@@ -63,7 +93,7 @@
                     <tr>
                         <td>
                             <span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                                <input type="checkbox" id="checkbox1" name="options" value="{{t.getId()}}">
                                 <label for="checkbox1"></label>
                             </span>
                         </td>
@@ -171,6 +201,27 @@
 </div>
 {% endfor %}
 {% endif %}
+
+<div id="deleteLaporanRekapModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id='form-laporanrekap' action='tampil-rekap' method='POST'>
+                <div class="modal-header">						
+                    <h4 class="modal-title">Hapus Laporan Rekapitulasi</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">				
+                    <input type='hidden' value='' name='id_laporans' id='hiddens'>
+                    <p>Apakah Anda yakin untuk menghapus data yang telah dipilih ?</p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
+                    <input type="submit" class="btn btn-danger" value="Hapus">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <div id="tambahLaporanRekapModal" class="modal fade">
     <div class="modal-dialog">

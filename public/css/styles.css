@@ -63,9 +63,18 @@ h1.text-center.text-secondary.profil{
     font-size: 2vw;
 }
 
+.bootstrap-select .dropdown-menu {
+    max-width: 10px;
+  }
+.bootstrap-select .dropdown-menu span.text {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .bootstrap-tagsinput {
     width: 100% !important;
-  }
+}
 
 span.tag.badge.badge-info{
     overflow: hidden;

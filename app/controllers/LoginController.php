@@ -5,7 +5,7 @@ use Phalcon\Http\Response;
 use Phalcon\Mvc\Dispatcher;
 
 use App\Forms\LoginForm;
-use App\Forms\ProfilForm;
+use App\Forms\AdminForm;
 use App\Events\AdminSecureController;
 
 class LoginController extends AdminSecureController
@@ -35,6 +35,7 @@ class LoginController extends AdminSecureController
         }
 
         $this->view->form = new LoginForm($user_rem);
+
     }
 
     public function storeAction()
@@ -69,9 +70,7 @@ class LoginController extends AdminSecureController
                         time() + 15 * 86400
                     );
                     $this->cookies->send();
-                    setcookie("remember", ['username'=> $username, 'password'=>$password], (86400 * 15), '/');
-                    
-                    
+                    setcookie("remember", ['username'=> $username, 'password'=>$password], (86400 * 15), '/');   
                 }
         		(new Response())->redirect()->send();
             }
@@ -102,5 +101,50 @@ class LoginController extends AdminSecureController
         $data = Admin::findFirst("username='$username'");
 
         $this->view->data = $data;
+        $this->view->form = new AdminForm($data);
+    }
+
+    public function editAction(){
+
+    }
+
+    public function updateAction(){
+        if(!$this->request->isPost()){
+            $this->response->redirect('profile');
+        }
+        $id_admin = $this->request->getPost('id_admin');          
+        $admin = Admin::findFirst("id_admin='$id_admin'");
+
+        if($admin==null){
+            $this->flashSession->error('Terjadi error saat pencarian data');
+        }
+
+        if($admin != null && $this->request->hasFiles() == true){
+            $nama_admin = $this->request->getPost('nama_admin');
+            $alamat = $this->request->getPost('alamat');
+            $jabatan = $this->request->getPost('jabatan');
+            $jenis_kelamin = $this->request->getPost('jenis_kelamin');
+            $pendidikan_terakhir = $this->request->getPost('pendidikan_terakhir');
+            $username = $this->request->getPost('username');
+            $password = $this->security->hash($this->request->getPost('password'));
+            $foto_profil = "temp.png";
+
+            $admin->construct($nama_admin,$alamat,$jabatan,$jenis_kelamin,$pendidikan_terakhir,$username,$password,$foto_profil);
+            if($admin->update()){
+                foreach($this->request->getUploadedFiles() as $files) {
+                    $file_toDB = "img\\img_profil\\" . $admin->getId() . '.' .$files->getExtension();
+                    $target_file = BASE_PATH . '\\public\\' . $file_toDB;
+                    $files->moveTo($target_file);
+                    $admin->construct($nama_admin,$alamat,$jabatan,$jenis_kelamin,$pendidikan_terakhir,$username,$password,$file_toDB);
+                    $admin->update();
+                }
+                $this->flashSession->success('Data operator berhasil diperbarui');
+                $this->view->form = new AdminForm();
+            }
+            else{
+                $this->flashSession->error('Terjadi kesalahan saat menyimpan data. Coba ulangi kembali');
+            }
+        }
+        $this->response->redirect('profile');   
     }
 }

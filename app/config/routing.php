@@ -86,6 +86,12 @@ $di->set(
 			'action' => 'show404',
 		]);
 
+		$router->addGet('/survei/error',
+		[
+			'controller' => 'index',
+			'action' => 'surveiError',
+		]);
+
 		return $router;
 	}
 );

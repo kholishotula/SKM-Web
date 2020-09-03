@@ -24,9 +24,9 @@
     addOnBlur: true,
     maxTags: undefined,
     maxChars: undefined,
-    confirmKeys: [13, 44],
-    delimiter: ',',
-    delimiterRegex: null,
+    confirmKeys: [59],
+    delimiter: ';',
+    delimiterRegex: /[;]+/,
     cancelConfirmKeysOnEmpty: false,
     onTagExists: function(item, $tag) {
       $tag.hide().fadeIn();
@@ -96,19 +96,19 @@
       if (self.isSelect && !self.multiple && self.itemsArray.length > 0)
         self.remove(self.itemsArray[0]);
 
-      if (typeof item === "string" && this.$element[0].tagName === 'INPUT') {
-        var delimiter = (self.options.delimiterRegex) ? self.options.delimiterRegex : self.options.delimiter;
-        var items = item.split(delimiter);
-        if (items.length > 1) {
-          for (var i = 0; i < items.length; i++) {
-            this.add(items[i], true);
-          }
+      // if (typeof item === "string" && this.$element[0].tagName === 'INPUT') {
+      //   var delimiter = (self.options.delimiterRegex) ? self.options.delimiterRegex : self.options.delimiter;
+      //   var items = item.split(delimiter);
+      //   if (items.length > 1) {
+      //     for (var i = 0; i < items.length; i++) {
+      //       this.add(items[i], true);
+      //     }
 
-          if (!dontPushVal)
-            self.pushVal(self.options.triggerChange);
-          return;
-        }
-      }
+      //     if (!dontPushVal)
+      //       self.pushVal(self.options.triggerChange);
+      //     return;
+      //   }
+      // }
 
       var itemValue = self.options.itemValue(item),
           itemText = self.options.itemText(item),

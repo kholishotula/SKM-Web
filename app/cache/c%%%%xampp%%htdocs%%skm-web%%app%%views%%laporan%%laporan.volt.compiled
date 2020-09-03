@@ -5,10 +5,10 @@
 <link href="<?= $this->url->get('css/styles.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/bootstrap.min.css') ?>" rel="stylesheet">
 <link id="css-main" href="<?= $this->url->get('css/codebase.min.css') ?>" rel="stylesheet">
-<link href="<?= $this->url->get('css/tagmanager.min.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/fontawesome.min.css') ?>" rel="stylesheet">
-<link href="<?= $this->url->get('css/Chart.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/bootstrap-select.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('css/tagsinput.css') ?>" rel="stylesheet">
+<link href="<?= $this->url->get('css/Chart.css') ?>" rel="stylesheet">
 <link href="<?= $this->url->get('assets/apple-touch-icon.png') ?>" rel="apple-touch-icon" sizes="180x180">
 <link href="<?= $this->url->get('assets/favicon-32x32.png') ?>" rel="icon" type="image/png" sizes="32x32">
 <link href="<?= $this->url->get('assets/favicon-16x16.png') ?>" rel="icon" type="image/png" sizes="16x16">
@@ -17,6 +17,7 @@
 <script type="text/javascript" src="<?= $this->url->get('js/jquery-3.3.1.min.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/bootstrap.bundle.min.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/popper.js') ?>"></script>
+<script type="text/javascript" src="<?= $this->url->get('js/bootstrap-select.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/tagsinput.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/Chart.js') ?>"></script>
 <script type="text/javascript" src="<?= $this->url->get('js/javascript.js') ?>"></script>
@@ -84,13 +85,49 @@
                 <div class="col-10" style="font-size: larger">
                     Bapak/Ibu/Saudara Yang Terhormat,<br><br>
                     <p class="text-justify">
-                        Berdasarkan Peraturan Menteri Pendayagunaan Aparatur Negara dan Reformasi Birokrasi Nomor 16 Tahun 2014 Tentang Pedoman Survei Kepuasan Masyarakat Terhadap Penyelenggaraan Pelayanan Publik, penyelenggara pelayanan publik wajib memublikasikan hasil survei-nya.<br><br>
-                        Berikut adalah laporan hasil survei :
+                        Berdasarkan Peraturan Menteri Pendayagunaan Aparatur Negara dan Reformasi Birokrasi Nomor 16 Tahun 2014 Tentang Pedoman Survei Kepuasan Masyarakat Terhadap Penyelenggaraan Pelayanan Publik, penyelenggara pelayanan publik wajib memublikasikan hasil survei-nya.
                     </p>
+                    <div class=style="width:200px; height:200px;">
+                        <canvas id="myChart"></canvas>
+                        <div class="pull-right">
+                            <?php $var = '25-40 : Tidak Puas , ' . '41-60 : Kurang Puas , ' . '61-80 : Puas , ' . '81-100 : Sangat Puas'; ?>
+                            <h8><b><?= $var ?></b></h8> 
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <div class="table-title" style="display:none">
+                            <div class="row">
+                                <div class="col-sm-8"> <h2>Daftar Jumlah <b>Responden Berdasarkan Tingkat Kepuasan</b></h2></div>
+                            </div>
+                        </div>
+                        <table id="dataTable1" class="table table-striped table-hover" style="display:none">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Nilai Kepuasan</th>
+                                    <th>Jumlah Responden</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php $i = 1; ?>
+                            <?php foreach (range(1, $this->length($datas)) as $i) { ?>
+                                <tr>
+                                    <th><?= $i ?></th>
+                                    <th><?= $datas[$i - 1]['ranges'] ?></th>
+                                    <th><?= $datas[$i - 1]['total'] ?></th>
+                                </tr>
+                            <?php $i = $i + 1; ?>
+                            <?php } ?>
+                            <tbody>
+                        </table>
+                    </div>
                     <p>
+                        <?php if ($laporan->count() > 0) { ?>
+                        Berikut adalah laporan hasil survei :
                         <!--LINK HASIL DISINI-->
                         <?php foreach ($laporan as $lapor) { ?>
                             <a href='<?= $lapor->getFile() ?>' download>Survei Kepuasan Masyarakat Tahun <?= $lapor->getTahunLapor() ?></a><br>
+                        <?php } ?>
                         <?php } ?>
                     </p>
                 </div>
@@ -101,10 +138,10 @@
 
 	<div class="clearfix bottom-content">
 		<div class="row" style="position: absolute; bottom: 8px; width: 100%; color: white"> 
-			<div class="col-8">
+			<div class="col-md-8">
 				<p style="padding-left: 2vw;">© Dinas Komunikasi, Informatika, dan Statistik Kota Blitar</p>
 			</div>
-			<div class="col-4">
+			<div class="col-md-4">
                 <a type="button" class="text-white" href="http://diskominfotik.blitarkota.go.id/"><i class="fa fa-globe" style="font-size:24px"></i> http://diskominfotik.blitarkota.go.id</a><br>
                 <a type="button" class="text-white" href="https://www.facebook.com/diskominfotikkotablitar/"><i class="fa fa-facebook-square" style="font-size:24px"></i> Diskominfotik Kota Blitar</a><br>
 			</div>
